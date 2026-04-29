@@ -13,6 +13,12 @@ Start here:
 - `versioning.md` defines versioning expectations.
 - `compatibility.md` defines compatibility and deprecation rules.
 - `conformance.md` defines fixture validation and vendoring guidance.
+- `integration/ensen-loop-consumer-guide.md` defines loop-side protocol
+  consumption and fixture handoff guidance.
+- `integration/ensen-flow-consumer-guide.md` defines flow-side protocol
+  consumption and fixture handoff guidance.
+- `integration/cross-repo-change-policy.md` defines the protocol-first
+  cross-repo change process.
 - `security.md` defines security posture for protocol artifacts.
 - `EIP-0000-common-types.md` defines common v1 schema types.
 - `EIP-0001-run-request.md` defines the RunRequest v1 executor request
