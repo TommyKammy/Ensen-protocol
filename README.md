@@ -11,6 +11,8 @@ executor, workflow engine, connector package, or loop service.
 ## Repository Shape
 
 - `docs/` contains protocol guidance and design rules.
+- `docs/mission.md` defines the repo-local mission and shortened Ensen
+  development charter.
 - `schemas/` is reserved for versioned machine-readable contract schemas.
 - `fixtures/` is reserved for example inputs and outputs used to test contracts.
 - `openapi/` is reserved for future transport-level API descriptions.

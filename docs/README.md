@@ -9,6 +9,8 @@ implementation package.
 
 Start here:
 
+- `mission.md` defines the Ensen-protocol repo-local mission and shortened
+  development charter.
 - `naming.md` defines naming conventions for protocol assets.
 - `versioning.md` defines versioning expectations.
 - `compatibility.md` defines compatibility and deprecation rules.
