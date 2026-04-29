@@ -9,3 +9,5 @@ tests that demonstrate their intended interoperability behavior.
   envelope used by common-type conformance tests.
 - `eip.run-request.v1.schema.json` defines the transport-neutral RunRequest v1
   contract for executor requests.
+- `eip.run-result.v1.schema.json` defines the transport-neutral RunResult v1
+  contract for terminal executor results.
