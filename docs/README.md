@@ -21,5 +21,7 @@ Start here:
   contract.
 - `EIP-0004-evidence-bundle-ref.md` defines the EvidenceBundleRef v1 evidence
   reference contract.
+- `EIP-0005-run-status-snapshot.md` defines the RunStatusSnapshot v1 async
+  executor polling contract.
 - `data-classification.md` defines fixture and production data handling labels.
 - `idempotency.md` defines common correlation and retry conventions.
