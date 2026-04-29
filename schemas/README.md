@@ -1,0 +1,6 @@
+# Schemas
+
+This directory is reserved for machine-readable EIP contract schemas.
+
+Schemas added here should be versioned, documented, and covered by fixtures or
+tests that demonstrate their intended interoperability behavior.
