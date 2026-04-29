@@ -10,7 +10,7 @@
   },
   "requestedBy": {
     "actorId": "actor_01HV7Y8M8F2KQ5W3P9R6T4N2AE",
-    "actorType": "service",
+    "actorType": "api_client",
     "displayName": "Ensen issue dispatcher"
   },
   "workItem": {

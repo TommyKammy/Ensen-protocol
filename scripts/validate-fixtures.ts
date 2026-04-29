@@ -22,6 +22,7 @@ const fixtureSuites = [
     fixtureRoot: "common/v1",
     schemaPath: "schemas/eip.common.v1.schema.json",
     invalidReasons: new Map([
+      ["bad-actor-type.json", "allowed values"],
       ["bad-classification.json", "allowed values"],
       ["bad-extension-key.json", "property name"],
       ["bad-timestamp.json", "pattern"],

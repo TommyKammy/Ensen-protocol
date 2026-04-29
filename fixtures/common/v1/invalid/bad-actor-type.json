@@ -3,7 +3,8 @@
   "correlationId": "corr_commonTypes0001",
   "createdAt": "2026-04-29T01:00:00Z",
   "actor": {
-    "actorType": "workflow"
+    "actorId": "actor_service0001",
+    "actorType": "service"
   },
   "source": {
     "sourceId": "source_fixture0001",
