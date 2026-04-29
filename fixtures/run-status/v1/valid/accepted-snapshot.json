@@ -1,7 +1,7 @@
 {
   "schemaVersion": "eip.run-status.v1",
-  "id": "runstatus_01HV9ZX8J2K6T3QW4R5Y7M8N9S",
-  "requestId": "runrequest_01HV9ZX8J2K6T3QW4R5Y7M8N9Q",
+  "id": "sts_01HV9ZX8J2K6T3QW4R5Y7M8N9S",
+  "requestId": "req_01HV9ZX8J2K6T3QW4R5Y7M8N9Q",
   "correlationId": "corr_01HV9ZX8J2K6T3QW4R5Y7M8N9R",
   "status": "accepted",
   "observedAt": "2026-04-29T00:00:00Z",

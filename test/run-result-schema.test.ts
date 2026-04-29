@@ -39,8 +39,8 @@ describe("EIP-0002 RunResult schema", () => {
   function runResult(overrides: Record<string, unknown> = {}): Record<string, unknown> {
     return {
       schemaVersion: "eip.run-result.v1",
-      id: "runresult_01HV9ZX8J2K6T3QW4R5Y7M8N9P",
-      requestId: "runrequest_01HV9ZX8J2K6T3QW4R5Y7M8N9Q",
+      id: "run_01HV9ZX8J2K6T3QW4R5Y7M8N9P",
+      requestId: "req_01HV9ZX8J2K6T3QW4R5Y7M8N9Q",
       correlationId: "corr_01HV9ZX8J2K6T3QW4R5Y7M8N9R",
       status: "succeeded",
       completedAt: "2026-04-29T00:00:00Z",

@@ -11,13 +11,13 @@
     "sourceType": "fixture"
   },
   "workItem": {
-    "workItemId": "work-item_protocol0001"
+    "workItemId": "workitem_protocol0001"
   },
   "changeRequest": {
-    "changeRequestId": "change-request_issue0003"
+    "changeRequestId": "cr_issue0003"
   },
   "evidenceBundle": {
-    "evidenceBundleId": "evidence-bundle_common0001"
+    "evidenceBundleId": "evb_common0001"
   },
   "classification": "public",
   "extensions": {
