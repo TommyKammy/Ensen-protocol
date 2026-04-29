@@ -10,3 +10,5 @@ placeholders for credentials, tenants, hosts, and operator-specific values.
 - `run-request/v1/valid/` contains valid EIP-0001 RunRequest fixtures.
 - `run-request/v1/invalid/` contains negative RunRequest fixtures and fixture
   safety examples.
+- `run-result/v1/valid/` contains valid EIP-0002 RunResult fixtures.
+- `run-result/v1/invalid/` contains negative RunResult fixtures.
