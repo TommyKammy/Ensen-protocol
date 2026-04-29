@@ -80,6 +80,22 @@ describe("conformance fixture validation", () => {
     });
   });
 
+  it("fails closed when a configured fixture suite has no files", () => {
+    withTempRepo((rootDir) => {
+      const fixturesDir = path.join(rootDir, "fixtures/run-request/v1/valid");
+      writeMinimalSchema(rootDir, "eip.run-request.v1.schema.json");
+      mkdirSync(fixturesDir, { recursive: true });
+      writeJson(path.join(fixturesDir, "sample.json"), {});
+
+      const result = validateFixtures(rootDir);
+
+      expect(result.ok).toBe(false);
+      expect(result.failures).toContain(
+        "fixtures/common/v1: no fixture files found for schemas/eip.common.v1.schema.json"
+      );
+    });
+  });
+
   it("reports malformed schema JSON as validation failures", () => {
     withTempRepo((rootDir) => {
       const schemasDir = path.join(rootDir, "schemas");
@@ -92,9 +108,11 @@ describe("conformance fixture validation", () => {
       const result = validateFixtures(rootDir);
 
       expect(result.ok).toBe(false);
-      expect(result.failures[0]).toContain(
-        "schemas/eip.run-request.v1.schema.json: invalid schema JSON"
-      );
+      expect(
+        result.failures.some((failure) =>
+          failure.includes("schemas/eip.run-request.v1.schema.json: invalid schema JSON")
+        )
+      ).toBe(true);
       expect(result.failures).toContain("fixtures/run-request/v1/valid/sample.json: missing validator");
     });
   });
@@ -109,7 +127,11 @@ describe("conformance fixture validation", () => {
       const result = validateFixtures(rootDir);
 
       expect(result.ok).toBe(false);
-      expect(result.failures[0]).toContain("fixtures/run-request/v1/valid/broken.json: invalid JSON");
+      expect(
+        result.failures.some((failure) =>
+          failure.includes("fixtures/run-request/v1/valid/broken.json: invalid JSON")
+        )
+      ).toBe(true);
     });
   });
 });

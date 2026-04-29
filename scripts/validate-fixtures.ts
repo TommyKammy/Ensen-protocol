@@ -123,25 +123,28 @@ function createAjv(rootDir: string, failures: string[]): Ajv2020 {
   return ajv;
 }
 
-function caseList(rootDir: string): FixtureValidationCase[] {
+function caseList(rootDir: string, failures: string[]): FixtureValidationCase[] {
   return fixtureSuites.flatMap((suite) => {
-    const validCases = fixturePaths(path.join(rootDir, "fixtures", suite.fixtureRoot, "valid")).map(
-      (fixturePath) => ({
-        fixturePath,
-        schemaPath: path.join(rootDir, suite.schemaPath),
-        valid: true,
-        expectedReason: "schema valid"
-      })
-    );
+    const validFixtures = fixturePaths(path.join(rootDir, "fixtures", suite.fixtureRoot, "valid"));
+    const invalidFixtures = fixturePaths(path.join(rootDir, "fixtures", suite.fixtureRoot, "invalid"));
 
-    const invalidCases = fixturePaths(path.join(rootDir, "fixtures", suite.fixtureRoot, "invalid")).map(
-      (fixturePath) => ({
-        fixturePath,
-        schemaPath: path.join(rootDir, suite.schemaPath),
-        valid: false,
-        expectedReason: suite.invalidReasons.get(path.basename(fixturePath)) ?? "schema invalid"
-      })
-    );
+    if (validFixtures.length + invalidFixtures.length === 0) {
+      failures.push(`fixtures/${suite.fixtureRoot}: no fixture files found for ${suite.schemaPath}`);
+    }
+
+    const validCases = validFixtures.map((fixturePath) => ({
+      fixturePath,
+      schemaPath: path.join(rootDir, suite.schemaPath),
+      valid: true,
+      expectedReason: "schema valid"
+    }));
+
+    const invalidCases = invalidFixtures.map((fixturePath) => ({
+      fixturePath,
+      schemaPath: path.join(rootDir, suite.schemaPath),
+      valid: false,
+      expectedReason: suite.invalidReasons.get(path.basename(fixturePath)) ?? "schema invalid"
+    }));
 
     return [...validCases, ...invalidCases];
   });
@@ -169,7 +172,7 @@ function compileBySchemaPath(ajv: Ajv2020, cases: FixtureValidationCase[]): Map<
 
 export function validateFixtures(rootDir: string = repoRoot()): FixtureValidationResult {
   const failures: string[] = [];
-  const cases = caseList(rootDir);
+  const cases = caseList(rootDir, failures);
   const ajv = createAjv(rootDir, failures);
   const validators = compileBySchemaPath(ajv, cases);
 
