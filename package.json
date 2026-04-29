@@ -9,13 +9,12 @@
     "check:fixtures": "tsx scripts/validate-fixtures.ts",
     "check:public-fixtures": "tsx scripts/check-public-fixtures.ts",
     "check:schema-ids": "tsx scripts/check-schema-ids.ts",
-    "test": "vitest run"
+    "test": "node --import tsx --test"
   },
   "devDependencies": {
     "@types/node": "^20.12.12",
     "ajv": "^8.20.0",
     "tsx": "^4.19.2",
-    "typescript": "^5.4.5",
-    "vitest": "^4.1.5"
+    "typescript": "^5.4.5"
   }
 }

@@ -1,8 +1,8 @@
 import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import Ajv2020 from "ajv/dist/2020";
-import { describe, expect, it } from "vitest";
+import { Ajv2020, type AnySchema } from "ajv/dist/2020.js";
+import { describe, expect, it } from "../test-support/assertions.js";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const schemaPath = path.join(repoRoot, "schemas/eip.run-result.v1.schema.json");
@@ -30,8 +30,8 @@ function fixturePaths(directory: string): string[] {
 }
 
 describe("EIP-0002 RunResult schema", () => {
-  const schema = readJson(schemaPath);
-  const commonSchema = readJson(commonSchemaPath);
+  const schema = readJson(schemaPath) as AnySchema;
+  const commonSchema = readJson(commonSchemaPath) as AnySchema;
   const ajv = new Ajv2020({ allErrors: true, strict: true });
   ajv.addSchema(commonSchema, "eip.common.v1.schema.json");
   const validate = ajv.compile(schema);
