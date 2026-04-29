@@ -65,7 +65,7 @@
     "IsoDateTimeUtc": {
       "type": "string",
       "description": "UTC timestamp using ISO 8601 extended format with a literal Z offset.",
-      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{3})?Z$"
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?Z$"
     },
     "ActorRef": {
       "type": "object",
@@ -195,7 +195,7 @@
       "type": "object",
       "description": "Vendor or artifact-specific extension values. Extension keys must use the x- prefix.",
       "propertyNames": {
-        "pattern": "^x-[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+        "pattern": "^x-.+$"
       },
       "additionalProperties": true
     },

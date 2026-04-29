@@ -28,6 +28,15 @@ function fixturePaths(directory: string): string[] {
     .sort();
 }
 
+function commonEnvelope(overrides: Record<string, unknown> = {}): Record<string, unknown> {
+  const fixture = readJson("fixtures/common/v1/valid/common-envelope.json");
+
+  return {
+    ...(fixture as Record<string, unknown>),
+    ...overrides,
+  };
+}
+
 describe("EIP-0000 common schema", () => {
   const schema = readJson(schemaPath);
   const ajv = new Ajv2020({ allErrors: true, strict: true });
@@ -57,6 +66,47 @@ describe("EIP-0000 common schema", () => {
     "rejects invalid fixture %s",
     (fixturePath) => {
       const fixture = readJson(fixturePath);
+
+      expect(validate(fixture)).toBe(false);
+    }
+  );
+
+  it.each([
+    "2026-04-29T01:00:00Z",
+    "2026-04-29T01:00:00.1Z",
+    "2026-04-29T01:00:00.123456Z",
+  ])("accepts UTC timestamps with optional fractional seconds: %s", (createdAt) => {
+    expect(
+      validate(commonEnvelope({ createdAt })),
+      JSON.stringify(validate.errors, null, 2)
+    ).toBe(true);
+  });
+
+  it.each(["2026-04-29T01:00:00.Z", "2026-04-29T01:00:00.123456+00:00"])(
+    "rejects malformed or non-Z UTC timestamps: %s",
+    (createdAt) => {
+      expect(validate(commonEnvelope({ createdAt }))).toBe(false);
+    }
+  );
+
+  it("accepts any non-empty extension key that starts with x-", () => {
+    const fixture = commonEnvelope({
+      extensions: {
+        "x-Vendor.Field": "extension values are artifact-specific",
+      },
+    });
+
+    expect(validate(fixture), JSON.stringify(validate.errors, null, 2)).toBe(true);
+  });
+
+  it.each(["x-", "fixture-note"])(
+    "rejects extension keys that do not use a non-empty x- prefix: %s",
+    (key) => {
+      const fixture = commonEnvelope({
+        extensions: {
+          [key]: "invalid extension key",
+        },
+      });
 
       expect(validate(fixture)).toBe(false);
     }
