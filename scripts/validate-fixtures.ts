@@ -78,7 +78,7 @@ function readJson(filePath: string): unknown {
 }
 
 function fixturePaths(directory: string): string[] {
-  if (!existsSync(directory)) {
+  if (!existsSync(directory) || !statSync(directory).isDirectory()) {
     return [];
   }
 
@@ -89,18 +89,35 @@ function fixturePaths(directory: string): string[] {
 }
 
 function allSchemaPaths(rootDir: string): string[] {
-  return readdirSync(path.join(rootDir, "schemas"))
+  const schemasDir = path.join(rootDir, "schemas");
+
+  if (!existsSync(schemasDir) || !statSync(schemasDir).isDirectory()) {
+    return [];
+  }
+
+  return readdirSync(schemasDir)
     .filter((entry) => entry.endsWith(".schema.json"))
-    .map((entry) => path.join(rootDir, "schemas", entry))
+    .map((entry) => path.join(schemasDir, entry))
     .sort();
 }
 
-function createAjv(rootDir: string): Ajv2020 {
+function createAjv(rootDir: string, failures: string[]): Ajv2020 {
   const ajv = new Ajv2020({ allErrors: true, strict: true });
+  const schemaPaths = allSchemaPaths(rootDir);
 
-  for (const schemaPath of allSchemaPaths(rootDir)) {
-    const schema = readJson(schemaPath) as Record<string, unknown>;
-    ajv.addSchema(schema, path.basename(schemaPath));
+  if (schemaPaths.length === 0) {
+    failures.push("No schema files found under schemas");
+    return ajv;
+  }
+
+  for (const schemaPath of schemaPaths) {
+    try {
+      const schema = readJson(schemaPath) as Record<string, unknown>;
+      ajv.addSchema(schema, path.basename(schemaPath));
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      failures.push(`${path.relative(rootDir, schemaPath)}: invalid schema JSON (${message})`);
+    }
   }
 
   return ajv;
@@ -153,15 +170,24 @@ function compileBySchemaPath(ajv: Ajv2020, cases: FixtureValidationCase[]): Map<
 export function validateFixtures(rootDir: string = repoRoot()): FixtureValidationResult {
   const failures: string[] = [];
   const cases = caseList(rootDir);
-  const ajv = createAjv(rootDir);
+  const ajv = createAjv(rootDir, failures);
   const validators = compileBySchemaPath(ajv, cases);
 
   for (const validationCase of cases) {
-    const fixture = readJson(validationCase.fixturePath);
+    let fixture: unknown;
+
+    try {
+      fixture = readJson(validationCase.fixturePath);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      failures.push(`${path.relative(rootDir, validationCase.fixturePath)}: invalid JSON (${message})`);
+      continue;
+    }
+
     const validate = validators.get(validationCase.schemaPath);
 
     if (!validate) {
-      failures.push(`${validationCase.fixturePath}: missing validator`);
+      failures.push(`${path.relative(rootDir, validationCase.fixturePath)}: missing validator`);
       continue;
     }
 

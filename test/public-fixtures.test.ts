@@ -24,7 +24,9 @@ function withTempFixture(value: unknown, assertion: (filePath: string) => void):
 
 describe("public fixture safety", () => {
   it("accepts publishable valid fixtures", () => {
-    const result = checkPublicFixtures(publicFixturePaths(repoRoot));
+    const fixturePaths = publicFixturePaths(repoRoot);
+    expect(fixturePaths.length).toBeGreaterThan(0);
+    const result = checkPublicFixtures(fixturePaths);
 
     expect(result.findings).toEqual([]);
   });

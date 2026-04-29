@@ -15,7 +15,7 @@ function repoRoot(): string {
 function schemaPaths(rootDir: string): string[] {
   const schemasDir = path.join(rootDir, "schemas");
 
-  if (!existsSync(schemasDir)) {
+  if (!existsSync(schemasDir) || !statSync(schemasDir).isDirectory()) {
     return [];
   }
 
@@ -32,11 +32,26 @@ function readJson(filePath: string): Record<string, unknown> {
 export function checkSchemaIds(rootDir: string = repoRoot()): SchemaIdCheckResult {
   const errors: string[] = [];
   const ids = new Map<string, string>();
+  const paths = schemaPaths(rootDir);
 
-  for (const schemaPath of schemaPaths(rootDir)) {
-    const schema = readJson(schemaPath);
-    const schemaId = schema.$id;
+  if (paths.length === 0) {
+    errors.push("No schema files found under schemas");
+    return { ok: false, errors, ids };
+  }
+
+  for (const schemaPath of paths) {
     const relativePath = path.relative(rootDir, schemaPath);
+    let schema: Record<string, unknown>;
+
+    try {
+      schema = readJson(schemaPath);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      errors.push(`${relativePath} is not valid JSON: ${message}`);
+      continue;
+    }
+
+    const schemaId = schema.$id;
 
     if (typeof schemaId !== "string" || schemaId.length === 0) {
       errors.push(`${relativePath} is missing $id`);

@@ -1,9 +1,35 @@
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { validateFixtures } from "../scripts/validate-fixtures.js";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+
+function withTempRepo(assertion: (rootDir: string) => void): void {
+  const rootDir = mkdtempSync(path.join(tmpdir(), "ensen-fixtures-"));
+
+  try {
+    assertion(rootDir);
+  } finally {
+    rmSync(rootDir, { recursive: true, force: true });
+  }
+}
+
+function writeJson(filePath: string, value: unknown): void {
+  writeFileSync(filePath, `${JSON.stringify(value, null, 2)}\n`);
+}
+
+function writeMinimalSchema(rootDir: string, schemaName: string): void {
+  const schemasDir = path.join(rootDir, "schemas");
+  mkdirSync(schemasDir, { recursive: true });
+  writeJson(path.join(schemasDir, schemaName), {
+    $schema: "https://json-schema.org/draft/2020-12/schema",
+    $id: `https://example.invalid/${schemaName}`,
+    type: "object"
+  });
+}
 
 describe("conformance fixture validation", () => {
   const result = validateFixtures(repoRoot);
@@ -43,5 +69,47 @@ describe("conformance fixture validation", () => {
       "fixtures/run-status/v1/valid/running-snapshot.json",
       "fixtures/run-status/v1/invalid/final-result-only-fields.json"
     ]);
+  });
+
+  it("fails closed when schemas are missing", () => {
+    withTempRepo((rootDir) => {
+      const result = validateFixtures(rootDir);
+
+      expect(result.ok).toBe(false);
+      expect(result.failures).toContain("No schema files found under schemas");
+    });
+  });
+
+  it("reports malformed schema JSON as validation failures", () => {
+    withTempRepo((rootDir) => {
+      const schemasDir = path.join(rootDir, "schemas");
+      const fixturesDir = path.join(rootDir, "fixtures/run-request/v1/valid");
+      mkdirSync(schemasDir, { recursive: true });
+      mkdirSync(fixturesDir, { recursive: true });
+      writeFileSync(path.join(schemasDir, "eip.run-request.v1.schema.json"), "{");
+      writeJson(path.join(fixturesDir, "sample.json"), {});
+
+      const result = validateFixtures(rootDir);
+
+      expect(result.ok).toBe(false);
+      expect(result.failures[0]).toContain(
+        "schemas/eip.run-request.v1.schema.json: invalid schema JSON"
+      );
+      expect(result.failures).toContain("fixtures/run-request/v1/valid/sample.json: missing validator");
+    });
+  });
+
+  it("reports malformed fixture JSON without aborting validation", () => {
+    withTempRepo((rootDir) => {
+      const fixturesDir = path.join(rootDir, "fixtures/run-request/v1/valid");
+      writeMinimalSchema(rootDir, "eip.run-request.v1.schema.json");
+      mkdirSync(fixturesDir, { recursive: true });
+      writeFileSync(path.join(fixturesDir, "broken.json"), "{");
+
+      const result = validateFixtures(rootDir);
+
+      expect(result.ok).toBe(false);
+      expect(result.failures[0]).toContain("fixtures/run-request/v1/valid/broken.json: invalid JSON");
+    });
   });
 });
