@@ -3,11 +3,11 @@ import { mkdirSync, mkdtempSync, rmSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "../test-support/assertions.js";
 import {
   checkSpecOnlyBoundary,
   disallowedRuntimeDirectories
-} from "../scripts/check-spec-only-boundary";
+} from "../scripts/check-spec-only-boundary.js";
 
 const tempRoots: string[] = [];
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");

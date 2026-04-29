@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import Ajv2020, { type ErrorObject, type ValidateFunction } from "ajv/dist/2020";
+import { Ajv2020, type AnySchema, type ErrorObject, type ValidateFunction } from "ajv/dist/2020.js";
 import { checkPublicFixtures } from "./check-public-fixtures.js";
 
 export interface FixtureValidationCase {
@@ -113,7 +113,7 @@ function createAjv(rootDir: string, failures: string[]): Ajv2020 {
 
   for (const schemaPath of schemaPaths) {
     try {
-      const schema = readJson(schemaPath) as Record<string, unknown>;
+      const schema = readJson(schemaPath) as AnySchema;
       ajv.addSchema(schema, path.basename(schemaPath));
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);

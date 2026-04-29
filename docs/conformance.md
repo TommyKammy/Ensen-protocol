@@ -13,7 +13,7 @@ Run the conformance checks from the repository root:
 
 ```sh
 npm install
-npm test -- test/fixtures.test.ts test/public-fixtures.test.ts test/schema-ids.test.ts
+npm test -- test/fixtures.test.ts
 npm run check:fixtures
 npm run check:public-fixtures
 npm run check:schema-ids
