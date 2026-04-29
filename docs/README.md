@@ -13,3 +13,6 @@ Start here:
 - `versioning.md` defines versioning expectations.
 - `compatibility.md` defines compatibility and deprecation rules.
 - `security.md` defines security posture for protocol artifacts.
+- `EIP-0000-common-types.md` defines common v1 schema types.
+- `data-classification.md` defines fixture and production data handling labels.
+- `idempotency.md` defines common correlation and retry conventions.

@@ -1,0 +1,22 @@
+{
+  "artifactId": "artifact_commonEnvelope001",
+  "correlationId": "corr_commonTypes0001",
+  "createdAt": "2026-04-29T01:00:00Z",
+  "actor": {
+    "actorType": "service"
+  },
+  "source": {
+    "sourceId": "source_fixture0001",
+    "sourceType": "fixture"
+  },
+  "workItem": {
+    "workItemId": "work-item_protocol0001"
+  },
+  "changeRequest": {
+    "changeRequestId": "change-request_issue0003"
+  },
+  "evidenceBundle": {
+    "evidenceBundleId": "evidence-bundle_common0001"
+  },
+  "classification": "public"
+}
