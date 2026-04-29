@@ -14,6 +14,7 @@ executor, workflow engine, connector package, or loop service.
 - `schemas/` is reserved for versioned machine-readable contract schemas.
 - `fixtures/` is reserved for example inputs and outputs used to test contracts.
 - `openapi/` is reserved for future transport-level API descriptions.
+- `docs/conformance.md` defines fixture validation and vendoring guidance.
 - `scripts/check-spec-only-boundary.ts` enforces that runtime implementation
   directories are not added to this repository.
 
@@ -25,6 +26,9 @@ focused on the EIP contract and publishable specification assets.
 ```sh
 npm install
 npm test
+npm run check:fixtures
+npm run check:public-fixtures
+npm run check:schema-ids
 npm run check:spec-boundary
 npm audit --omit=optional
 ```
