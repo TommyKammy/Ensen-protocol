@@ -128,19 +128,20 @@ describe("EIP-0004 EvidenceBundleRef schema", () => {
   });
 
   it("rejects URI credentials and host-local absolute local paths", () => {
-    expect(
-      validate(
-        evidenceBundleRef({
-          type: "file_uri",
-          uri: "https://user:REDACTED_FIXTURE_SECRET_PLACEHOLDER@evidence.example.test/bundle.json"
+    const rawSecretFixture = readJson(
+      "fixtures/evidence-bundle-ref/v1/invalid/raw-secret-uri.json"
+    );
+
+    expect(containsRawSecretUri(rawSecretFixture)).toBe(true);
+    expect(validate(rawSecretFixture)).toBe(false);
+    expect(validate.errors).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          instancePath: "/uri",
+          keyword: "not"
         })
-      )
-    ).toBe(false);
-    expect(
-      containsRawSecretUri(
-        readJson("fixtures/evidence-bundle-ref/v1/invalid/raw-secret-uri.json")
-      )
-    ).toBe(true);
+      ])
+    );
 
     expect(
       validate(
