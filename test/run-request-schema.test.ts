@@ -95,8 +95,15 @@ describe("EIP-0001 RunRequest schema", () => {
     "rejects invalid fixture %s",
     (fixturePath) => {
       const fixture = readJson(fixturePath);
+      const hasRawSecret = containsRawSecret(fixture);
+      const isSchemaValid = validate(fixture);
 
-      expect(validate(fixture) && !containsRawSecret(fixture)).toBe(false);
+      if (path.basename(fixturePath) === "raw-secret.json") {
+        expect(hasRawSecret).toBe(true);
+      } else {
+        expect(hasRawSecret).toBe(false);
+        expect(isSchemaValid, JSON.stringify(validate.errors, null, 2)).toBe(false);
+      }
     }
   );
 
