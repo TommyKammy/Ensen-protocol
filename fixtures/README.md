@@ -14,3 +14,7 @@ placeholders for credentials, tenants, hosts, and operator-specific values.
 - `run-result/v1/invalid/` contains negative RunResult fixtures.
 - `audit-event/v1/valid/` contains valid EIP-0003 AuditEvent fixtures.
 - `audit-event/v1/invalid/` contains negative AuditEvent fixtures.
+- `evidence-bundle-ref/v1/valid/` contains valid EIP-0004 EvidenceBundleRef
+  fixtures.
+- `evidence-bundle-ref/v1/invalid/` contains negative EvidenceBundleRef
+  fixtures.

@@ -19,5 +19,7 @@ Start here:
 - `EIP-0002-run-result.md` defines the RunResult v1 terminal result contract.
 - `EIP-0003-audit-event.md` defines the AuditEvent v1 append-only audit event
   contract.
+- `EIP-0004-evidence-bundle-ref.md` defines the EvidenceBundleRef v1 evidence
+  reference contract.
 - `data-classification.md` defines fixture and production data handling labels.
 - `idempotency.md` defines common correlation and retry conventions.
