@@ -15,3 +15,5 @@ tests that demonstrate their intended interoperability behavior.
   contract for append-only audit and evidence streams.
 - `eip.evidence-bundle-ref.v1.schema.json` defines the transport-neutral
   EvidenceBundleRef v1 contract for evidence material references.
+- `eip.run-status.v1.schema.json` defines the transport-neutral
+  RunStatusSnapshot v1 contract for async executor status polling.

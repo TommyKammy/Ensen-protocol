@@ -18,3 +18,5 @@ placeholders for credentials, tenants, hosts, and operator-specific values.
   fixtures.
 - `evidence-bundle-ref/v1/invalid/` contains negative EvidenceBundleRef
   fixtures.
+- `run-status/v1/valid/` contains valid EIP-0005 RunStatusSnapshot fixtures.
+- `run-status/v1/invalid/` contains negative RunStatusSnapshot fixtures.
