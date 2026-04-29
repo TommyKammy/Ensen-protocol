@@ -1,8 +1,9 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
-const repoRoot = process.cwd();
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 describe("repository baseline", () => {
   it("contains the expected spec baseline files", () => {

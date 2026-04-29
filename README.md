@@ -25,4 +25,6 @@ focused on the EIP contract and publishable specification assets.
 ```sh
 npm install
 npm test
+npm run check:spec-boundary
+npm audit --omit=optional
 ```

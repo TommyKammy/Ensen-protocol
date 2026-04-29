@@ -1,4 +1,4 @@
-import { existsSync } from "node:fs";
+import { existsSync, statSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -42,10 +42,16 @@ function isDirectExecution(): boolean {
 
 if (isDirectExecution()) {
   const rootDir = process.argv[2] ? path.resolve(process.argv[2]) : process.cwd();
-  const result = checkSpecOnlyBoundary(rootDir);
 
-  if (!result.ok) {
-    console.error(formatViolationMessage(result.violations));
+  if (!existsSync(rootDir) || !statSync(rootDir).isDirectory()) {
+    console.error(`Invalid repository root: ${rootDir}`);
     process.exitCode = 1;
+  } else {
+    const result = checkSpecOnlyBoundary(rootDir);
+
+    if (!result.ok) {
+      console.error(formatViolationMessage(result.violations));
+      process.exitCode = 1;
+    }
   }
 }
