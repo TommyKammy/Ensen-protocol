@@ -12,3 +12,5 @@ placeholders for credentials, tenants, hosts, and operator-specific values.
   safety examples.
 - `run-result/v1/valid/` contains valid EIP-0002 RunResult fixtures.
 - `run-result/v1/invalid/` contains negative RunResult fixtures.
+- `audit-event/v1/valid/` contains valid EIP-0003 AuditEvent fixtures.
+- `audit-event/v1/invalid/` contains negative AuditEvent fixtures.

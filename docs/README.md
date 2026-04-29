@@ -16,5 +16,8 @@ Start here:
 - `EIP-0000-common-types.md` defines common v1 schema types.
 - `EIP-0001-run-request.md` defines the RunRequest v1 executor request
   contract.
+- `EIP-0002-run-result.md` defines the RunResult v1 terminal result contract.
+- `EIP-0003-audit-event.md` defines the AuditEvent v1 append-only audit event
+  contract.
 - `data-classification.md` defines fixture and production data handling labels.
 - `idempotency.md` defines common correlation and retry conventions.

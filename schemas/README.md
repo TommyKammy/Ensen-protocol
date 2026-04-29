@@ -11,3 +11,5 @@ tests that demonstrate their intended interoperability behavior.
   contract for executor requests.
 - `eip.run-result.v1.schema.json` defines the transport-neutral RunResult v1
   contract for terminal executor results.
+- `eip.audit-event.v1.schema.json` defines the transport-neutral AuditEvent v1
+  contract for append-only audit and evidence streams.
