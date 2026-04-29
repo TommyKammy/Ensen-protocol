@@ -14,10 +14,13 @@ WorkItemRef, ChangeRequestRef, and EvidenceBundleRef are references. They do
 not redefine the referenced record and must not be treated as proof that the
 referenced record exists or is authorized.
 
-All common identifiers use `PrefixedId`: a lowercase semantic prefix, an
-underscore, and an opaque suffix. The prefix states the identifier family; the
-suffix is opaque and must not be parsed for tenant, repository, account, issue,
-environment, or authorization facts.
+All common identifiers use `PrefixedId`: a registered 2-8 character lowercase
+semantic prefix, an underscore, and an opaque suffix. The prefix states the
+identifier family; the suffix is opaque and must not be parsed for tenant,
+repository, account, issue, environment, or authorization facts. Public v1
+artifact families use short prefixes such as `req_`, `run_`, `sts_`, `evt_`,
+`evb_`, and `corr_`; long, hyphenated, or drifted prefixes such as
+`runrequest_`, `runreq_`, and `executor-run_` are not canonical.
 
 ## Timestamp Conventions
 

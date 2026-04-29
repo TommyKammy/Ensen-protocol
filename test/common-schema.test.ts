@@ -89,6 +89,25 @@ describe("EIP-0000 common schema", () => {
     }
   );
 
+  it.each(["req_", "run_", "sts_", "evt_", "evb_", "corr_"])(
+    "accepts canonical short semantic PrefixedId prefix: %s",
+    (prefix) => {
+      expect(
+        validate(commonEnvelope({ artifactId: `${prefix}01HV9ZX8J2K6T3QW4R5Y7M8N9A` })),
+        JSON.stringify(validate.errors, null, 2)
+      ).toBe(true);
+    }
+  );
+
+  it.each(["runreq_", "runresult_", "runstatus_", "auditevent_", "evidencebundle_", "executor-run_"])(
+    "rejects non-canonical drifted PrefixedId prefix: %s",
+    (prefix) => {
+      expect(
+        validate(commonEnvelope({ artifactId: `${prefix}01HV9ZX8J2K6T3QW4R5Y7M8N9A` }))
+      ).toBe(false);
+    }
+  );
+
   it.each(["human", "workflow", "system", "api_client", "connector", "executor", "agent"])(
     "accepts design-listed ActorRef actorType: %s",
     (actorType) => {

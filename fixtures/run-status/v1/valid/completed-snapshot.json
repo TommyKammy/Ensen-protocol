@@ -1,9 +1,9 @@
 {
   "schemaVersion": "eip.run-status.v1",
-  "id": "runstatus_01HV9ZX8J2K6T3QW4R5Y7M8N9U",
-  "requestId": "runrequest_01HV9ZX8J2K6T3QW4R5Y7M8N9Q",
+  "id": "sts_01HV9ZX8J2K6T3QW4R5Y7M8N9U",
+  "requestId": "req_01HV9ZX8J2K6T3QW4R5Y7M8N9Q",
   "correlationId": "corr_01HV9ZX8J2K6T3QW4R5Y7M8N9R",
-  "runId": "executor-run_01HV9ZX8J2K6T3QW4R5Y7M8N9V",
+  "runId": "run_01HV9ZX8J2K6T3QW4R5Y7M8N9V",
   "status": "completed",
   "observedAt": "2026-04-29T00:05:00Z",
   "message": "Run completed. Retrieve final details from RunResult."

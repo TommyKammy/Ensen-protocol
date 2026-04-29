@@ -41,8 +41,8 @@ describe("EIP-0005 RunStatusSnapshot schema", () => {
   ): Record<string, unknown> {
     return {
       schemaVersion: "eip.run-status.v1",
-      id: "runstatus_01HV9ZX8J2K6T3QW4R5Y7M8N9S",
-      requestId: "runrequest_01HV9ZX8J2K6T3QW4R5Y7M8N9Q",
+      id: "sts_01HV9ZX8J2K6T3QW4R5Y7M8N9S",
+      requestId: "req_01HV9ZX8J2K6T3QW4R5Y7M8N9Q",
       correlationId: "corr_01HV9ZX8J2K6T3QW4R5Y7M8N9R",
       status: "running",
       observedAt: "2026-04-29T00:00:00Z",
@@ -99,7 +99,7 @@ describe("EIP-0005 RunStatusSnapshot schema", () => {
     expect(
       validate(
         runStatusSnapshot({
-          runId: "executor-run_01HV9ZX8J2K6T3QW4R5Y7M8N9T",
+          runId: "run_01HV9ZX8J2K6T3QW4R5Y7M8N9T",
           message: "Executor is running verification.",
           progress: {
             current: 2,

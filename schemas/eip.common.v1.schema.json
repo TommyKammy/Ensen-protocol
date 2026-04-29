@@ -54,8 +54,8 @@
   "$defs": {
     "PrefixedId": {
       "type": "string",
-      "description": "Stable protocol identifier with a lowercase semantic prefix, underscore separator, and opaque suffix.",
-      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*_[A-Za-z0-9][A-Za-z0-9._~-]{5,127}$"
+      "description": "Stable protocol identifier with a registered 2-8 character lowercase semantic prefix, underscore separator, and opaque suffix.",
+      "pattern": "^(?:actor|artifact|corr|cr|evb|evt|flowstep|policy|pr|repo|req|run|source|sts|workitem)_[A-Za-z0-9][A-Za-z0-9._~-]{5,127}$"
     },
     "CorrelationId": {
       "type": "string",

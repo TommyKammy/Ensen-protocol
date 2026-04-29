@@ -13,15 +13,15 @@
     "externalRef": "public-fixture/agent-actor-envelope"
   },
   "workItem": {
-    "workItemId": "work-item_protocol0001",
+    "workItemId": "workitem_protocol0001",
     "title": "Define common schema conventions"
   },
   "changeRequest": {
-    "changeRequestId": "change-request_issue0003",
+    "changeRequestId": "cr_issue0003",
     "status": "open"
   },
   "evidenceBundle": {
-    "evidenceBundleId": "evidence-bundle_common0001",
+    "evidenceBundleId": "evb_common0001",
     "digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
   },
   "classification": "public"

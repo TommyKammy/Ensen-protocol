@@ -1,6 +1,6 @@
 {
   "schemaVersion": "eip.run-request.v1",
-  "id": "runreq_01HV7Y8M8F2KQ5W3P9R6T4N2EA",
+  "id": "req_01HV7Y8M8F2KQ5W3P9R6T4N2EA",
   "correlationId": "corr_01HV7Y8M8F2KQ5W3P9R6T4N2EB",
   "idempotencyKey": "manual-request-20260429-3",
   "source": "github",
