@@ -1,0 +1,17 @@
+{
+  "name": "ensen-protocol",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Spec-only baseline for the Ensen Interop Protocol.",
+  "scripts": {
+    "check:spec-boundary": "tsx scripts/check-spec-only-boundary.ts",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "tsx": "^4.19.2",
+    "typescript": "^5.4.5",
+    "vitest": "^4.1.5"
+  }
+}
