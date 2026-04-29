@@ -7,3 +7,5 @@ tests that demonstrate their intended interoperability behavior.
 
 - `eip.common.v1.schema.json` defines reusable v1 common types and a fixture
   envelope used by common-type conformance tests.
+- `eip.run-request.v1.schema.json` defines the transport-neutral RunRequest v1
+  contract for executor requests.
