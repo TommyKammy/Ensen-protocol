@@ -6,6 +6,7 @@ import { describe, expect, it } from "vitest";
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const workstationHomePathFragments = [
   ["/", "Users", "/"].join(""),
+  ["/", "home", "/"].join(""),
   ["C:", "\\", "Users", "\\"].join("")
 ];
 
@@ -20,6 +21,12 @@ function hasWorkstationHomePath(content: string): boolean {
 }
 
 describe("integration handoff documentation", () => {
+  it("detects common workstation home path fragments", () => {
+    expect(
+      hasWorkstationHomePath(["/", "home", "/", "operator", "/", "repo"].join(""))
+    ).toBe(true);
+  });
+
   it("documents loop and flow as independent protocol consumers", () => {
     const loopGuide = readDoc("docs/integration/ensen-loop-consumer-guide.md");
     const flowGuide = readDoc("docs/integration/ensen-flow-consumer-guide.md");
