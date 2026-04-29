@@ -160,6 +160,8 @@ describe("EIP-0004 EvidenceBundleRef docs", () => {
     expect(docs).toContain("not the evidence bundle body");
     expect(docs).toContain("local_path");
     expect(docs).toContain("file_uri");
-    expect(docs).toContain("must not contain credentials");
+    expect(docs).toContain(
+      "must not carry raw credentials or credential-shaped placeholders"
+    );
   });
 });
