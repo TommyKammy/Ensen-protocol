@@ -43,7 +43,9 @@ records.
 ## Common Reference Types
 
 ActorRef identifies the actor associated with an artifact. It requires an
-explicit actorId and actorType.
+explicit actorId and actorType. Actor type values are limited to the Phase 1
+actor categories: `human`, `workflow`, `system`, `api_client`, `connector`,
+`executor`, and `agent`.
 
 SourceRef identifies the source system or fixture family that produced the
 artifact. It requires an explicit sourceId and sourceType.

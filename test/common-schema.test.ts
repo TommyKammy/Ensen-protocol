@@ -89,6 +89,39 @@ describe("EIP-0000 common schema", () => {
     }
   );
 
+  it.each(["human", "workflow", "system", "api_client", "connector", "executor", "agent"])(
+    "accepts design-listed ActorRef actorType: %s",
+    (actorType) => {
+      expect(
+        validate(
+          commonEnvelope({
+            actor: {
+              actorId: "actor_01HV9ZX8J2K6T3QW4R5Y7M8N9A",
+              actorType,
+            },
+          })
+        ),
+        JSON.stringify(validate.errors, null, 2)
+      ).toBe(true);
+    }
+  );
+
+  it.each(["service", "workflow-engine", "apiClient", ""])(
+    "rejects malformed or non-design ActorRef actorType: %s",
+    (actorType) => {
+      expect(
+        validate(
+          commonEnvelope({
+            actor: {
+              actorId: "actor_01HV9ZX8J2K6T3QW4R5Y7M8N9A",
+              actorType,
+            },
+          })
+        )
+      ).toBe(false);
+    }
+  );
+
   it("accepts any non-empty extension key that starts with x-", () => {
     const fixture = commonEnvelope({
       extensions: {

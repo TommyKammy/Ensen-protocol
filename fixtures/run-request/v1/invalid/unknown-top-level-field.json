@@ -9,7 +9,7 @@
   },
   "requestedBy": {
     "actorId": "actor_01HV7Y8M8F2KQ5W3P9R6T4N2FD",
-    "actorType": "service"
+    "actorType": "api_client"
   },
   "workItem": {
     "workItemId": "workitem_01HV7Y8M8F2KQ5W3P9R6T4N2FE",

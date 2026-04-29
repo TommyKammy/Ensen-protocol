@@ -3,8 +3,8 @@
   "correlationId": "corr_commonTypes0001",
   "createdAt": "2026-04-29T01:00:00Z",
   "actor": {
-    "actorId": "actor_service0001",
-    "actorType": "service",
+    "actorId": "actor_workflow001",
+    "actorType": "workflow",
     "displayName": "Fixture Producer"
   },
   "source": {

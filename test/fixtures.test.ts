@@ -40,7 +40,9 @@ describe("conformance fixture validation", () => {
 
   it("covers the currently published fixture suite", () => {
     expect(result.cases.map((validationCase) => path.relative(repoRoot, validationCase.fixturePath))).toEqual([
+      "fixtures/common/v1/valid/agent-actor-envelope.json",
       "fixtures/common/v1/valid/common-envelope.json",
+      "fixtures/common/v1/invalid/bad-actor-type.json",
       "fixtures/common/v1/invalid/bad-classification.json",
       "fixtures/common/v1/invalid/bad-extension-key.json",
       "fixtures/common/v1/invalid/bad-timestamp.json",

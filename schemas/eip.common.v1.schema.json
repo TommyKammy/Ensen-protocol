@@ -77,7 +77,7 @@
         },
         "actorType": {
           "type": "string",
-          "enum": ["human", "service", "system"]
+          "enum": ["human", "workflow", "system", "api_client", "connector", "executor", "agent"]
         },
         "displayName": {
           "type": "string",
