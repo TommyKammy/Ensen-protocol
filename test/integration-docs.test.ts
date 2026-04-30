@@ -74,8 +74,8 @@ describe("integration handoff documentation", () => {
     }
 
     expect(checklist).toMatch(/Ensen-protocol first/i);
-    expect(checklist).toMatch(/Ensen-loop|Loop/i);
-    expect(checklist).toMatch(/Ensen-flow|Flow/i);
+    expect(checklist).toMatch(/\bEnsen-loop\b/i);
+    expect(checklist).toMatch(/\bEnsen-flow\b/i);
     expect(checklist).toMatch(/sanitized/i);
     expect(hasWorkstationHomePath(checklist)).toBe(false);
     expect(docsIndex).toContain(
