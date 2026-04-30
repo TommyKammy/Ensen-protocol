@@ -29,6 +29,9 @@ Record the snapshot in the consumer repository near the conformance tests:
   and relevant log excerpts from the consumer repository;
 - local conformance test owner: the consumer-side test file or task that reads
   the copied snapshot;
+- unsupported-major-version rejection: sanitized evidence naming the unsupported
+  EIP major version, the consumer boundary that rejected the artifact, and the
+  local check or test command that proved the fail-closed behavior;
 - exceptions: unsupported optional fields or deferred compatibility work, each
   linked to an explicit consumer follow-up issue.
 
@@ -54,6 +57,14 @@ If a consumer does not use one of these artifacts, record the explicit reason in
 the consumer snapshot record. Do not infer conformance from a neighboring
 artifact, runtime naming convention, or copied file shape alone.
 
+If a copied artifact declares an unsupported EIP major version, the consumer
+must fail closed at the parser, adapter, or ingestion boundary before runtime
+work is dispatched. The consumer must reject or block the artifact and record
+which protocol snapshot was active, which major versions were supported, the
+unsupported EIP major version that was rejected, and the consumer boundary that
+rejected the artifact. Do not downgrade, coerce, or silently accept the artifact
+as a supported major version.
+
 ## Evidence Hygiene
 
 Consumer conformance evidence should be sanitized before it is copied into an
@@ -63,6 +74,8 @@ issue, pull request, release note, or handoff record:
   environment variable names;
 - include the protocol snapshot version and copied schema paths and copied
   fixture paths;
+- include unsupported EIP major version rejection evidence when that fail-closed
+  path is exercised;
 - exclude raw secrets, credential-bearing URIs, customer data, tenant-specific
   identifiers, real repository mutation payloads, and workstation-local paths;
 - replace local roots with placeholders such as `<codex-supervisor-root>`,

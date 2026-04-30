@@ -10,6 +10,12 @@ should treat a snapshot as immutable protocol evidence: Markdown contract text,
 JSON Schemas, public fixtures, compatibility guidance, and the validation
 commands that proved the snapshot was publishable.
 
+Consumers must fail closed when an artifact declares an unsupported EIP major
+version. A copied or vendored snapshot authorizes only the major versions named
+by that snapshot; unsupported EIP major version artifacts must be rejected or
+blocked rather than silently accepted, downgraded, coerced, or interpreted as a
+nearby supported major version.
+
 ## Snapshot Metadata
 
 Each consumer snapshot record should include:
@@ -27,6 +33,8 @@ Each consumer snapshot record should include:
   protocol snapshot and the consumer-side conformance run;
 - consumer owner: the local consumer test, task, or adapter boundary that reads
   the copied snapshot;
+- unsupported EIP major version evidence: sanitized command evidence naming the
+  consumer boundary that rejected or blocked the unsupported artifact;
 - exceptions: unsupported optional fields, deferred compatibility work, or
   intentional exclusions, each linked to an explicit follow-up issue.
 
@@ -87,6 +95,8 @@ record the snapshot handoff evidence:
 - schema families and fixture families included in the snapshot;
 - any intentionally excluded schema families or fixture families;
 - compatibility notes that affect Loop, Flow, or future consumers;
+- unsupported EIP major version fail-closed evidence linked to the consumer
+  conformance checklist;
 - validation commands run from the repository root:
 
 ```sh

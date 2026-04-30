@@ -18,6 +18,10 @@ Use copied or vendored fixture snapshots for flow-side conformance tests:
 - record the Ensen-protocol commit used for the snapshot;
 - treat `valid/` fixtures as required compatibility examples;
 - treat `invalid/` fixtures as fail-closed regression coverage;
+- reject or block any unsupported EIP major version at the flow parser,
+  authoring, or ingestion boundary, and record sanitized evidence for the active
+  protocol snapshot, supported major versions, rejected version, and command or
+  test that proved the fail-closed behavior;
 - keep flow-specific credentials, tenant ids, host names, and operator paths out
   of the vendored snapshot.
 
@@ -39,3 +43,8 @@ label them separately from protocol conformance fixtures.
 When Ensen-flow needs a contract change, open or reference the Ensen-protocol
 issue first. Implement flow changes only after the protocol change is accepted,
 documented, and backed by schema or fixture updates where applicable.
+
+Unsupported EIP major version handling follows `../protocol-snapshot-policy.md`
+and `consumer-conformance-handoff-checklist.md`: Ensen-flow must fail closed
+instead of accepting, downgrading, coercing, or interpreting the artifact as a
+supported major version.
