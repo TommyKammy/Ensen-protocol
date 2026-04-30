@@ -183,4 +183,51 @@ describe("integration handoff documentation", () => {
     expect(fixturesReadme).toMatch(/workstation-local path/i);
     expect(hasWorkstationHomePath(fixturesReadme)).toBe(false);
   });
+
+  it("documents post-gate protocol gap and conformance drift routing", () => {
+    const routingGuide = readDoc(
+      "docs/integration/protocol-gap-and-conformance-drift.md"
+    );
+    const docsIndex = readDoc("docs/README.md");
+
+    for (const expected of [
+      "post-gate drift routing",
+      "X-Gate 2 loop-flow dry-run smoke path has already been reached",
+      "does not reopen that reached decision",
+      "protocol snapshot version",
+      "failing consumer repo",
+      "observed artifact",
+      "expected artifact",
+      "reproduction boundary",
+      "sanitized artifact references",
+      "protocol gap",
+      "loop gap",
+      "flow gap",
+      "schema/spec ambiguity",
+      "fixture drift",
+      "consumer implementation bug",
+      "unsupported EIP major version",
+      "fail closed",
+      "fixtures/README.md",
+      "protocol-snapshot-policy.md",
+      "consumer-conformance-handoff-checklist.md"
+    ]) {
+      expect(routingGuide).toContain(expected);
+    }
+
+    for (const forbidden of [
+      /raw secret/i,
+      /token/i,
+      /customer data/i,
+      /real repository mutation/i,
+      /workstation-local path/i
+    ]) {
+      expect(routingGuide).toMatch(forbidden);
+    }
+
+    expect(hasWorkstationHomePath(routingGuide)).toBe(false);
+    expect(docsIndex).toContain(
+      "integration/protocol-gap-and-conformance-drift.md"
+    );
+  });
 });

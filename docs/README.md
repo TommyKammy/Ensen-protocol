@@ -23,6 +23,8 @@ Start here:
   consumption and fixture handoff guidance.
 - `integration/consumer-conformance-handoff-checklist.md` defines the snapshot
   evidence checklist for Loop and Flow conformance handoffs.
+- `integration/protocol-gap-and-conformance-drift.md` defines post-gate
+  protocol gap and conformance drift issue routing fields.
 - `integration/cross-repo-change-policy.md` defines the protocol-first
   cross-repo change process.
 - `security.md` defines security posture for protocol artifacts.
