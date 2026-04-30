@@ -33,8 +33,9 @@ Each consumer snapshot record should include:
   protocol snapshot and the consumer-side conformance run;
 - consumer owner: the local consumer test, task, or adapter boundary that reads
   the copied snapshot;
-- unsupported EIP major version evidence: sanitized command evidence naming the
-  consumer boundary that rejected or blocked the unsupported artifact;
+- unsupported EIP major version evidence: sanitized evidence naming the
+  unsupported EIP major version, the consumer boundary that rejected or blocked
+  it, and the local check or test command that proved the fail-closed behavior;
 - exceptions: unsupported optional fields, deferred compatibility work, or
   intentional exclusions, each linked to an explicit follow-up issue.
 

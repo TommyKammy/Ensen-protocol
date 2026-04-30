@@ -20,7 +20,8 @@ Use copied or vendored fixture snapshots for loop-side conformance tests:
 - treat `invalid/` fixtures as fail-closed regression coverage;
 - reject or block any unsupported EIP major version at the loop parser or
   executor-dispatch boundary, and record sanitized evidence for the active
-  protocol snapshot, supported major versions, rejected version, and command or
+  protocol snapshot, supported major versions, the rejected version, the loop
+  boundary that blocked it (`parser` or `executor-dispatch`), and the command or
   test that proved the fail-closed behavior;
 - keep loop-specific credentials, tenant ids, host names, and operator paths out
   of the vendored snapshot.

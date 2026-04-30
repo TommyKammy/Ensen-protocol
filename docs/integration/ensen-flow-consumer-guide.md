@@ -20,8 +20,9 @@ Use copied or vendored fixture snapshots for flow-side conformance tests:
 - treat `invalid/` fixtures as fail-closed regression coverage;
 - reject or block any unsupported EIP major version at the flow parser,
   authoring, or ingestion boundary, and record sanitized evidence for the active
-  protocol snapshot, supported major versions, rejected version, and command or
-  test that proved the fail-closed behavior;
+  protocol snapshot, supported major versions, the rejected version, the flow
+  boundary that blocked it (`parser`, `authoring`, or `ingestion`), and the
+  command or test that proved the fail-closed behavior;
 - keep flow-specific credentials, tenant ids, host names, and operator paths out
   of the vendored snapshot.
 

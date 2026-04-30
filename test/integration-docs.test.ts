@@ -135,6 +135,13 @@ describe("integration handoff documentation", () => {
 
     expect(checklist).toContain("unsupported-major-version rejection");
     expect(checklist).toContain("consumer boundary that rejected the artifact");
+    expect(policy).toContain("unsupported EIP major version evidence");
+    expect(policy).toContain("unsupported EIP major version, the consumer boundary");
+    expect(policy).toContain("local check or test command");
+    expect(loopGuide).toMatch(/loop\s+boundary that blocked it/);
+    expect(loopGuide).toContain("`parser` or `executor-dispatch`");
+    expect(flowGuide).toMatch(/flow\s+boundary that blocked it/);
+    expect(flowGuide).toContain("`parser`, `authoring`, or `ingestion`");
     expect(policy).toContain(
       "integration/consumer-conformance-handoff-checklist.md"
     );
