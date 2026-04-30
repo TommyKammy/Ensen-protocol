@@ -117,4 +117,33 @@ describe("integration handoff documentation", () => {
       expect(doc).toContain("protocol-snapshot-policy.md");
     }
   });
+
+  it("documents unsupported EIP major version fail-closed behavior", () => {
+    const policy = readDoc("docs/protocol-snapshot-policy.md");
+    const checklist = readDoc(
+      "docs/integration/consumer-conformance-handoff-checklist.md"
+    );
+    const loopGuide = readDoc("docs/integration/ensen-loop-consumer-guide.md");
+    const flowGuide = readDoc("docs/integration/ensen-flow-consumer-guide.md");
+    const versioning = readDoc("docs/versioning.md");
+
+    for (const doc of [policy, checklist, loopGuide, flowGuide, versioning]) {
+      expect(doc).toMatch(/unsupported EIP major version/i);
+      expect(doc).toMatch(/fail closed/i);
+      expect(hasWorkstationHomePath(doc)).toBe(false);
+    }
+
+    expect(checklist).toContain("unsupported-major-version rejection");
+    expect(checklist).toContain("consumer boundary that rejected the artifact");
+    expect(policy).toContain("unsupported EIP major version evidence");
+    expect(policy).toContain("unsupported EIP major version, the consumer boundary");
+    expect(policy).toContain("local check or test command");
+    expect(loopGuide).toMatch(/loop\s+boundary that blocked it/);
+    expect(loopGuide).toContain("`parser` or `executor-dispatch`");
+    expect(flowGuide).toMatch(/flow\s+boundary that blocked it/);
+    expect(flowGuide).toContain("`parser`, `authoring`, or `ingestion`");
+    expect(policy).toContain(
+      "integration/consumer-conformance-handoff-checklist.md"
+    );
+  });
 });
