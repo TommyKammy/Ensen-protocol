@@ -5,6 +5,10 @@ vendors or copies an Ensen-protocol release snapshot into its own conformance
 tests. The goal is to prove which protocol contract the consumer uses without
 turning Ensen-protocol into a shared runtime package.
 
+Use `../protocol-snapshot-policy.md` to decide what belongs in the snapshot
+record, when to copy or vendor artifacts, and when to open a protocol follow-up
+issue before downstream implementation work.
+
 Ensen-protocol is a contract repository and not a runtime dependency. Consumer
 repositories may copy protocol documents, schemas, and fixtures into their own
 test trees, but they must not import runtime code, SDKs, adapters, workflow
