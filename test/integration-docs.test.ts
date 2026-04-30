@@ -49,4 +49,37 @@ describe("integration handoff documentation", () => {
     expect(policy).toMatch(/must not import .*implementation/i);
     expect(hasWorkstationHomePath(policy)).toBe(false);
   });
+
+  it("documents consumer conformance handoff evidence", () => {
+    const checklist = readDoc(
+      "docs/integration/consumer-conformance-handoff-checklist.md"
+    );
+    const docsIndex = readDoc("docs/README.md");
+
+    for (const expected of [
+      "protocol snapshot version",
+      "copied schema paths",
+      "copied fixture paths",
+      "consumer conformance command evidence",
+      "RunRequest",
+      "RunStatusSnapshot",
+      "RunResult",
+      "AuditEvent",
+      "EvidenceBundleRef",
+      "contract repository",
+      "not a runtime dependency",
+      "protocol ambiguity"
+    ]) {
+      expect(checklist).toContain(expected);
+    }
+
+    expect(checklist).toMatch(/Ensen-protocol first/i);
+    expect(checklist).toMatch(/Ensen-loop|Loop/i);
+    expect(checklist).toMatch(/Ensen-flow|Flow/i);
+    expect(checklist).toMatch(/sanitized/i);
+    expect(hasWorkstationHomePath(checklist)).toBe(false);
+    expect(docsIndex).toContain(
+      "integration/consumer-conformance-handoff-checklist.md"
+    );
+  });
 });

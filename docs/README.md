@@ -19,6 +19,8 @@ Start here:
   consumption and fixture handoff guidance.
 - `integration/ensen-flow-consumer-guide.md` defines flow-side protocol
   consumption and fixture handoff guidance.
+- `integration/consumer-conformance-handoff-checklist.md` defines the snapshot
+  evidence checklist for Loop and Flow conformance handoffs.
 - `integration/cross-repo-change-policy.md` defines the protocol-first
   cross-repo change process.
 - `security.md` defines security posture for protocol artifacts.
