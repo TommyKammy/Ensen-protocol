@@ -17,6 +17,8 @@ executor, workflow engine, connector package, or loop service.
 - `fixtures/` is reserved for example inputs and outputs used to test contracts.
 - `openapi/` is reserved for future transport-level API descriptions.
 - `docs/conformance.md` defines fixture validation and vendoring guidance.
+- `docs/protocol-snapshot-policy.md` defines release snapshot handoff guidance
+  for downstream protocol consumers.
 - `scripts/check-spec-only-boundary.ts` enforces that runtime implementation
   directories are not added to this repository.
 

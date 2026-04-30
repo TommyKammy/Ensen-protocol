@@ -15,6 +15,8 @@ Start here:
 - `versioning.md` defines versioning expectations.
 - `compatibility.md` defines compatibility and deprecation rules.
 - `conformance.md` defines fixture validation and vendoring guidance.
+- `protocol-snapshot-policy.md` defines the release snapshot policy for Loop,
+  Flow, and future protocol consumers.
 - `integration/ensen-loop-consumer-guide.md` defines loop-side protocol
   consumption and fixture handoff guidance.
 - `integration/ensen-flow-consumer-guide.md` defines flow-side protocol

@@ -82,4 +82,39 @@ describe("integration handoff documentation", () => {
       "integration/consumer-conformance-handoff-checklist.md"
     );
   });
+
+  it("documents protocol snapshot policy and release handoff checks", () => {
+    const policy = readDoc("docs/protocol-snapshot-policy.md");
+    const checklist = readDoc(
+      "docs/integration/consumer-conformance-handoff-checklist.md"
+    );
+    const versioning = readDoc("docs/versioning.md");
+    const docsIndex = readDoc("docs/README.md");
+
+    for (const expected of [
+      "release or tagged contract artifacts",
+      "not a runtime dependency",
+      "protocol version",
+      "commit or tag",
+      "schema families",
+      "fixture families",
+      "validation commands",
+      "copy or vendor",
+      "protocol follow-up issue",
+      "Ensen-loop",
+      "Ensen-flow"
+    ]) {
+      expect(policy).toContain(expected);
+    }
+
+    expect(policy).toMatch(/npm test/);
+    expect(policy).toMatch(/npm run check:fixtures/);
+    expect(policy).toMatch(/npm run check:public-fixtures/);
+    expect(policy).toMatch(/npm run check:spec-boundary/);
+    expect(hasWorkstationHomePath(policy)).toBe(false);
+
+    for (const doc of [checklist, versioning, docsIndex]) {
+      expect(doc).toContain("protocol-snapshot-policy.md");
+    }
+  });
 });

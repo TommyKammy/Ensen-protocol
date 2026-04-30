@@ -21,3 +21,20 @@ The first published protocol baseline is `v0.1.0`.
 - EIP-0005 RunStatusSnapshot
 - EIP-0006 conformance fixture and public fixture safety tooling
 - EIP-0007 Ensen-loop / Ensen-flow integration handoff notes
+
+## Release Snapshot Handoff
+
+Before publishing a protocol release for downstream consumers, run the snapshot
+handoff check from `protocol-snapshot-policy.md`:
+
+- record the protocol version and commit or tag selected for the release;
+- name the schema families and fixture families included in the snapshot;
+- name any intentionally excluded schema families or fixture families;
+- confirm the consumer conformance checklist is linked for Loop, Flow, and
+  future consumers;
+- record sanitized validation command evidence for `npm test`,
+  `npm run check:fixtures`, `npm run check:public-fixtures`, and
+  `npm run check:spec-boundary`.
+
+The release snapshot remains a set of copied or vendored contract artifacts. It
+does not create a runtime dependency on Ensen-protocol.
