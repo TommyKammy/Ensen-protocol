@@ -153,7 +153,8 @@ describe("integration handoff documentation", () => {
     for (const expected of [
       "X-Gate 2",
       "RunRequest -> RunStatusSnapshot -> RunResult -> EvidenceBundleRef",
-      "0.1.x protocol snapshot",
+      "v0.1.0",
+      "43fa3e7",
       "schemas/eip.run-request.v1.schema.json",
       "schemas/eip.run-status.v1.schema.json",
       "schemas/eip.run-result.v1.schema.json",
@@ -162,7 +163,6 @@ describe("integration handoff documentation", () => {
       "fixtures/run-status/v1/",
       "fixtures/run-result/v1/",
       "fixtures/evidence-bundle-ref/v1/",
-      "vendor or copy release snapshots",
       "protocol gap",
       "loop gap",
       "flow gap",
@@ -173,8 +173,9 @@ describe("integration handoff documentation", () => {
     }
 
     expect(fixturesReadme).toMatch(
-      /no runtime package,\s+server,\s+SDK,\s+connector,\s+or shared implementation/i
+      /no runtime package,\s+server,\s+SDK,\s+connector,\s+or shared\s+implementation/i
     );
+    expect(fixturesReadme).toMatch(/vendor or copy that immutable release\s+snapshot/i);
     expect(fixturesReadme).toMatch(/raw secret/i);
     expect(fixturesReadme).toMatch(/token/i);
     expect(fixturesReadme).toMatch(/customer data/i);
