@@ -192,7 +192,8 @@ describe("integration handoff documentation", () => {
 
     for (const expected of [
       "post-gate drift routing",
-      "X-Gate 2 is already reached",
+      "X-Gate 2 loop-flow dry-run smoke path has already been reached",
+      "does not reopen that reached decision",
       "protocol snapshot version",
       "failing consumer repo",
       "observed artifact",

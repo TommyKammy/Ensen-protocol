@@ -2,8 +2,8 @@
 
 Use this post-gate drift routing guide when a future smoke regression,
 conformance mismatch, or protocol ambiguity needs a GitHub issue after the
-X-Gate 2 loop-flow dry-run smoke path has already reached. X-Gate 2 is already reached;
-this guide hardens follow-up routing and does not reopen that reached decision.
+X-Gate 2 loop-flow dry-run smoke path has already been reached. This guide
+hardens follow-up routing and does not reopen that reached decision.
 
 This is an issue authoring guide, not a runtime contract. Keep reports focused
 on EIP contract text, schemas, fixtures, compatibility guidance, consumer
