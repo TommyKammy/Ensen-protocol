@@ -146,4 +146,40 @@ describe("integration handoff documentation", () => {
       "integration/consumer-conformance-handoff-checklist.md"
     );
   });
+
+  it("documents the X-Gate 2 loop-flow dry-run smoke fixture contract", () => {
+    const fixturesReadme = readDoc("fixtures/README.md");
+
+    for (const expected of [
+      "X-Gate 2",
+      "RunRequest -> RunStatusSnapshot -> RunResult -> EvidenceBundleRef",
+      "0.1.x protocol snapshot",
+      "schemas/eip.run-request.v1.schema.json",
+      "schemas/eip.run-status.v1.schema.json",
+      "schemas/eip.run-result.v1.schema.json",
+      "schemas/eip.evidence-bundle-ref.v1.schema.json",
+      "fixtures/run-request/v1/",
+      "fixtures/run-status/v1/",
+      "fixtures/run-result/v1/",
+      "fixtures/evidence-bundle-ref/v1/",
+      "vendor or copy release snapshots",
+      "protocol gap",
+      "loop gap",
+      "flow gap",
+      "Ensen-flow X-Gate 2 CLI-backed smoke issue",
+      "Ensen-loop X-Gate 2 dry-run output issue"
+    ]) {
+      expect(fixturesReadme).toContain(expected);
+    }
+
+    expect(fixturesReadme).toMatch(
+      /no runtime package,\s+server,\s+SDK,\s+connector,\s+or shared implementation/i
+    );
+    expect(fixturesReadme).toMatch(/raw secret/i);
+    expect(fixturesReadme).toMatch(/token/i);
+    expect(fixturesReadme).toMatch(/customer data/i);
+    expect(fixturesReadme).toMatch(/real repository mutation/i);
+    expect(fixturesReadme).toMatch(/workstation-local path/i);
+    expect(hasWorkstationHomePath(fixturesReadme)).toBe(false);
+  });
 });
