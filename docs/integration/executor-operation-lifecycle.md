@@ -79,6 +79,55 @@ consumer reports unsupported or unknown status rather than fabricating
 completion. When `status` is `unsupported`, consumers must not poll a different
 surface and present it as protocol status.
 
+## Polling And Terminal-State Rules
+
+Protocol polling is a consumer-owned polling loop over the provider's trusted
+`status` boundary. The protocol defines which artifacts and states cross that
+boundary; it does not define a shared scheduler, worker loop, retry engine,
+timer implementation, or runtime package.
+
+The polling cadence belongs to the consumer and the provider-specific
+capability contract. A boundary may publish a recommended minimum interval,
+backoff expectation, freshness limit, or maximum observation age. When no such
+contract is published, the consumer uses consumer-local orchestration and must
+not present its local retry timing as shared protocol behavior.
+
+Polling reads emit RunStatusSnapshot observations. `accepted`, `queued`,
+`running`, and `cancelling` are non-terminal progress observations. `unknown`
+is non-authoritative and must remain retry, fallback, or escalation input
+rather than success or failure. `cancelled`, `completed`, `failed`, and
+`blocked` are terminal snapshot status echo values: they indicate that polling
+has observed a terminal boundary state, but they do not carry final details.
+
+The terminal handoff from polling to result retrieval is explicit. After a
+terminal snapshot status echo, consumers retrieve the RunResult bound to the
+same RunRequest and authoritative run record. RunResult carries final status,
+completion time, verification, diagnostics, change request references, and
+evidence references. Consumers must not synthesize RunResult content from a
+snapshot, progress text, timeline entry, badge, timeout, or operator summary.
+
+In this contract, unsupported polling means the provider has no protocol status
+boundary for the exchange. Consumers may still use consumer-local orchestration
+to wait for a synchronous response, a terminal RunResult, or a provider-local
+callback, but they must report polling as unsupported and must not invent
+RunStatusSnapshot semantics from another surface.
+
+In this contract, partially supported polling means the boundary publishes a
+constrained subset: for example, only `queued` and `running`, only terminal
+echoes, no cancellation-related states, a maximum freshness window, or
+provider-specific minimum polling cadence. Observations outside that subset are
+unsupported or unknown unless the authoritative boundary explicitly extends the
+subset.
+
+A timeout is a consumer-local observation that a polling policy expired before
+a trusted terminal artifact was retrieved. A stale snapshot is an observation
+whose `observedAt` or provider freshness contract is too old to rely on. A
+no-progress report is a consumer-local report that repeated authoritative reads
+did not advance according to the published capability subset. These conditions
+are protocol-visible guidance for reporting and escalation, but they are not
+new RunStatusSnapshot statuses and do not imply `failed`, `blocked`,
+`cancelled`, `completed`, or any RunResult status.
+
 ## cancel lifecycle
 
 `cancel` requests cancellation for an already submitted run that is explicitly

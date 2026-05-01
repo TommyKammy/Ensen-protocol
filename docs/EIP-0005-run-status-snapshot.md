@@ -35,6 +35,25 @@ Consumers must treat `unknown` as non-authoritative. They should retry, fall
 back to the authoritative executor record, or escalate instead of inferring a
 successful result.
 
+Polling consumers should interpret these values at the transport boundary:
+
+| Status | Boundary meaning |
+| --- | --- |
+| `accepted` | The trusted boundary accepted the request and may not have assigned executor capacity yet. |
+| `queued` | The run is waiting for executor capacity or provider-local scheduling. |
+| `running` | The run is actively executing at the provider boundary. |
+| `cancelling` | A cancellation request was accepted and is still being applied. |
+| `cancelled` | The run has reached a stopped terminal observation; retrieve the final RunResult before treating the run as closed. |
+| `completed` | The run has reached a normal terminal observation; retrieve the final RunResult before consuming final details. |
+| `failed` | The run has reached a failed terminal observation; retrieve the final RunResult for diagnostics and evidence references. |
+| `blocked` | The run has reached a blocked terminal observation because a prerequisite is missing; retrieve the final RunResult for the blocking boundary and evidence references. |
+| `unknown` | The provider cannot currently make an authoritative state claim; this is not success, failure, or completion. |
+
+See
+[`integration/executor-operation-lifecycle.md`](integration/executor-operation-lifecycle.md)
+for the transport-level polling and terminal-state handoff rules that use this
+artifact.
+
 ## Optional Fields
 
 - `runId`: executor-local run id when the executor has assigned one.
@@ -54,9 +73,10 @@ details such as `completedAt`, `changeRequests`, `evidenceBundles`,
 `verification`, terminal `errors`, terminal `warnings`, or terminal `metrics`.
 
 When a snapshot reports `completed`, `failed`, `blocked`, or `cancelled`, it is
-only a status echo. Consumers retrieve final details via RunResult. RunResult is
-the terminal artifact that carries completion time, evidence references, change
-request references, verification summaries, diagnostics, and metrics.
+only a terminal snapshot status echo. Consumers retrieve final details via
+RunResult. RunResult is the terminal artifact that carries completion time,
+evidence references, change request references, verification summaries,
+diagnostics, and metrics.
 
 ## Connector Use
 

@@ -31,6 +31,26 @@ The in-progress states `queued` and `running` are not valid RunResult statuses.
 Producers that need to expose those states should use a RunStatusSnapshot
 artifact instead of emitting a RunResult early.
 
+## Terminal Handoff
+
+RunStatusSnapshot may report `completed`, `failed`, `blocked`, or `cancelled`
+before a consumer has retrieved the final RunResult. That terminal handoff is a
+two-step contract: the snapshot tells the consumer to stop treating the run as
+in progress, and the RunResult supplies the durable terminal artifact with
+completion time, verification, diagnostics, change request references, and
+evidence references.
+
+Consumers must not synthesize a RunResult from a terminal status echo,
+operator-facing status text, timeout, stale snapshot, or no-progress report. If
+the terminal RunResult is unavailable after a terminal snapshot, the consumer
+should report that final details are unavailable, retry the authoritative
+boundary according to its local policy, or escalate instead of inventing final
+semantics.
+
+See
+[`integration/executor-operation-lifecycle.md`](integration/executor-operation-lifecycle.md)
+for the transport-level polling rules that lead into this terminal artifact.
+
 ## Optional Fields
 
 - `changeRequests`: zero or more common v1 ChangeRequestRef objects produced or
