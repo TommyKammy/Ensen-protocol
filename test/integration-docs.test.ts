@@ -311,4 +311,53 @@ describe("integration handoff documentation", () => {
       "integration/executor-operation-lifecycle.md"
     );
   });
+
+  it("documents polling and terminal-state handoff rules", () => {
+    const lifecycle = readDoc(
+      "docs/integration/executor-operation-lifecycle.md"
+    );
+    const statusSnapshot = readDoc("docs/EIP-0005-run-status-snapshot.md");
+    const runResult = readDoc("docs/EIP-0002-run-result.md");
+
+    for (const expected of [
+      "consumer-owned polling loop",
+      "polling cadence",
+      "terminal snapshot status echo",
+      "terminal handoff",
+      "timeout",
+      "stale",
+      "no-progress",
+      "unsupported polling",
+      "partially supported polling",
+      "consumer-local orchestration"
+    ]) {
+      expect(lifecycle).toContain(expected);
+    }
+
+    for (const expected of [
+      "accepted",
+      "queued",
+      "running",
+      "cancelling",
+      "cancelled",
+      "completed",
+      "failed",
+      "blocked",
+      "unknown"
+    ]) {
+      expect(statusSnapshot).toContain(expected);
+    }
+
+    expect(statusSnapshot).toMatch(/terminal snapshot status echo/i);
+    expect(statusSnapshot).toMatch(/retrieve.*RunResult/i);
+    expect(statusSnapshot).toContain(
+      "integration/executor-operation-lifecycle.md"
+    );
+    expect(runResult).toMatch(/terminal handoff/i);
+    expect(runResult).toMatch(/not valid RunResult statuses/i);
+    expect(runResult).toContain("integration/executor-operation-lifecycle.md");
+    expect(hasWorkstationHomePath(lifecycle + statusSnapshot + runResult)).toBe(
+      false
+    );
+  });
 });
