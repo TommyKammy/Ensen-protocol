@@ -22,7 +22,7 @@ state, tenant, repository, account, issue, environment, or evidence linkage
 from naming conventions, path shape, forwarded headers, operator text, timeline
 summaries, or nearby metadata.
 
-When a prerequisite signal is missing or malformed, fail closed. A missing
+When a prerequisite signal is missing or malformed, fail-closed. A missing
 scope binding, unknown capability, unsupported EIP major version, absent
 evidence authorization, or ambiguous terminal state must stay blocked,
 unsupported, unknown, or rejected instead of being upgraded into success by
@@ -72,7 +72,7 @@ catalog claims.
 
 ## Unsupported EIP Major Versions
 
-Unsupported EIP major version handling remains fail closed. A consumer that
+Unsupported EIP major version handling remains fail-closed. A consumer that
 receives an unsupported major version must reject or block the artifact at its
 parser, ingestion, authoring, or dispatch boundary and preserve sanitized
 evidence of the unsupported version and boundary that rejected it.

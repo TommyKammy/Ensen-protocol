@@ -333,7 +333,7 @@ describe("integration handoff documentation", () => {
       "RunResult",
       "diagnostics",
       "unsupported EIP major version",
-      "fail closed",
+      "fail-closed",
       "protocol-gap-and-conformance-drift.md",
       "public fixture safety behavior is unchanged"
     ]) {
