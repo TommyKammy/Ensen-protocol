@@ -30,6 +30,9 @@ Start here:
   evidence, polling, idempotency, and unsupported-operation reporting.
 - `integration/executor-operation-lifecycle.md` defines transport-neutral
   lifecycle semantics for submit, status, cancel, and fetchEvidence.
+- `integration/transport-error-mapping-and-retryability.md` defines
+  transport-neutral error categories, retryability guidance, and status/result
+  mapping expectations.
 - `integration/cross-repo-change-policy.md` defines the protocol-first
   cross-repo change process.
 - `security.md` defines security posture for protocol artifacts.
