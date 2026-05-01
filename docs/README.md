@@ -25,6 +25,9 @@ Start here:
   evidence checklist for Loop and Flow conformance handoffs.
 - `integration/protocol-gap-and-conformance-drift.md` defines post-gate
   protocol gap and conformance drift issue routing fields.
+- `integration/executor-transport-capabilities.md` defines the transport-neutral
+  executor transport capability model for submit, status, cancellation,
+  evidence, polling, idempotency, and unsupported-operation reporting.
 - `integration/cross-repo-change-policy.md` defines the protocol-first
   cross-repo change process.
 - `security.md` defines security posture for protocol artifacts.
