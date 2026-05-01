@@ -312,6 +312,59 @@ describe("integration handoff documentation", () => {
     );
   });
 
+  it("documents transport error mapping and retryability guidance", () => {
+    const errorMapping = readDoc(
+      "docs/integration/transport-error-mapping-and-retryability.md"
+    );
+    const docsIndex = readDoc("docs/README.md");
+
+    for (const expected of [
+      "transport error mapping",
+      "retryability guidance",
+      "validation failure",
+      "unsupported capability",
+      "transient transport failure",
+      "provider rejection",
+      "timeout",
+      "cancellation conflict",
+      "evidence unavailable",
+      "unknown failure",
+      "RunStatusSnapshot",
+      "RunResult",
+      "diagnostics",
+      "unsupported EIP major version",
+      "fail closed",
+      "protocol-gap-and-conformance-drift.md",
+      "public fixture safety behavior is unchanged"
+    ]) {
+      expect(errorMapping).toContain(expected);
+    }
+
+    for (const expected of [
+      "retryable",
+      "not retryable",
+      "consumer-local",
+      "blocked",
+      "failed",
+      "cancelled",
+      "unknown",
+      "Ensen-protocol",
+      "Ensen-loop",
+      "Ensen-flow",
+      "consumer-local follow-up"
+    ]) {
+      expect(errorMapping).toContain(expected);
+    }
+
+    expect(errorMapping).toMatch(/not a retry engine/i);
+    expect(errorMapping).toMatch(/must not require automatic retry/i);
+    expect(errorMapping).toMatch(/must not define provider-specific error code catalogs/i);
+    expect(hasWorkstationHomePath(errorMapping)).toBe(false);
+    expect(docsIndex).toContain(
+      "integration/transport-error-mapping-and-retryability.md"
+    );
+  });
+
   it("documents polling and terminal-state handoff rules", () => {
     const lifecycle = readDoc(
       "docs/integration/executor-operation-lifecycle.md"
