@@ -28,6 +28,8 @@ Start here:
 - `integration/executor-transport-capabilities.md` defines the transport-neutral
   executor transport capability model for submit, status, cancellation,
   evidence, polling, idempotency, and unsupported-operation reporting.
+- `integration/executor-operation-lifecycle.md` defines transport-neutral
+  lifecycle semantics for submit, status, cancel, and fetchEvidence.
 - `integration/cross-repo-change-policy.md` defines the protocol-first
   cross-repo change process.
 - `security.md` defines security posture for protocol artifacts.

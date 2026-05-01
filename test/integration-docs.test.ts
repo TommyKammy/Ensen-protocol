@@ -272,4 +272,43 @@ describe("integration handoff documentation", () => {
       "integration/executor-transport-capabilities.md"
     );
   });
+
+  it("documents executor operation lifecycle semantics", () => {
+    const lifecycle = readDoc(
+      "docs/integration/executor-operation-lifecycle.md"
+    );
+    const docsIndex = readDoc("docs/README.md");
+
+    for (const expected of [
+      "submit lifecycle",
+      "status lifecycle",
+      "cancel lifecycle",
+      "fetchEvidence lifecycle",
+      "RunRequest",
+      "RunStatusSnapshot",
+      "RunResult",
+      "EvidenceBundleRef",
+      "correlationId",
+      "idempotencyKey",
+      "required baseline",
+      "optional",
+      "partial",
+      "unsupported",
+      "best-effort",
+      "reference retrieval",
+      "executor-transport-capabilities.md",
+      "protocol-gap-and-conformance-drift.md",
+      "schema/spec ambiguity"
+    ]) {
+      expect(lifecycle).toContain(expected);
+    }
+
+    expect(lifecycle).toMatch(/must not define OpenAPI endpoints/i);
+    expect(lifecycle).toMatch(/must not require SDK/i);
+    expect(lifecycle).toMatch(/do not embed evidence bodies/i);
+    expect(hasWorkstationHomePath(lifecycle)).toBe(false);
+    expect(docsIndex).toContain(
+      "integration/executor-operation-lifecycle.md"
+    );
+  });
 });
