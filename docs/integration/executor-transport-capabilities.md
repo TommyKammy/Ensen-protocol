@@ -67,7 +67,7 @@ without cancellation, RunResult evidence references without a fetch operation,
 or cancellation only before a run leaves `queued`. Partial support must also
 state the fail-closed result for cases outside the subset.
 
-Unsupported support is an explicit capability state. Consumers must not coerce
+Unsupported is an explicit capability state. Consumers must not coerce
 an unsupported operation into a supported one by retrying another operation,
 parsing operator-facing text, treating a missing response as success, or
 substituting guessed context.
