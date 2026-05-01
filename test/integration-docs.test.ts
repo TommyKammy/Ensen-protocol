@@ -230,4 +230,46 @@ describe("integration handoff documentation", () => {
       "integration/protocol-gap-and-conformance-drift.md"
     );
   });
+
+  it("documents executor transport capability vocabulary", () => {
+    const capabilityModel = readDoc(
+      "docs/integration/executor-transport-capabilities.md"
+    );
+    const docsIndex = readDoc("docs/README.md");
+
+    for (const expected of [
+      "executor transport capability model",
+      "transport-neutral",
+      "submit",
+      "status",
+      "cancel",
+      "fetchEvidence",
+      "polling support",
+      "evidence reference support",
+      "idempotency expectation",
+      "unsupported-operation behavior",
+      "required baseline",
+      "optional",
+      "partial",
+      "unsupported",
+      "Flow connector capability matrix",
+      "Loop provider boundary",
+      "RunRequest",
+      "RunStatusSnapshot",
+      "RunResult",
+      "EvidenceBundleRef",
+      "protocol gap",
+      "conformance drift",
+      "fail closed"
+    ]) {
+      expect(capabilityModel).toContain(expected);
+    }
+
+    expect(capabilityModel).toMatch(/must not define OpenAPI endpoints/i);
+    expect(capabilityModel).toMatch(/must not require SDK/i);
+    expect(hasWorkstationHomePath(capabilityModel)).toBe(false);
+    expect(docsIndex).toContain(
+      "integration/executor-transport-capabilities.md"
+    );
+  });
 });
