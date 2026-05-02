@@ -17,6 +17,20 @@ artifact as a neighboring supported major version.
 
 The first published protocol baseline is `v0.1.0`.
 
+`v0.2.0` is the Phase 3 transport and capability contract snapshot. It keeps
+the existing v1 schema family and adds protocol guidance plus conformance
+examples for external executor and connector capability behavior:
+
+- executor transport capability model;
+- submit/status/cancel/fetchEvidence lifecycle guidance;
+- polling and terminal-state handoff rules;
+- transport error mapping and retryability guidance;
+- capability variant examples for supported, partial, unsupported, and
+  retryability scenarios.
+
+`v0.2.0` does not introduce a runtime package, shared implementation, server,
+SDK, connector implementation, workflow runtime, or OpenAPI transport API.
+
 `v0.1.0` contains the v1 schema family and conformance fixture baseline:
 
 - EIP-0000 Common Types
