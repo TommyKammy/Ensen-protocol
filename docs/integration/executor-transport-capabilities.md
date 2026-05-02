@@ -108,6 +108,31 @@ capability cannot be represented with the current artifacts, route that as a
 protocol gap instead of adding local-only fields or extension keys that imply a
 general contract.
 
+## Conformance Fixture Examples
+
+Phase 3 capability variants are covered by public-safe examples under
+`fixtures/capability-variants/v1/valid/`. They are fixture-like conformance
+inputs for Loop and Flow consumers, not a new runtime, SDK, connector, OpenAPI
+endpoint, provider server, or schema family.
+
+Use these examples when checking capability matrices and provider-boundary
+evidence:
+
+| Example | Consumer conformance use |
+| --- | --- |
+| `fixtures/capability-variants/v1/valid/fully-supported-transport.json` | supported capability variant example for a boundary that advertises submit, status, cancel, fetchEvidence, polling, evidence references, and idempotency |
+| `fixtures/capability-variants/v1/valid/submit-only-no-polling.json` | partial capability variant example for submit-only or no-polling transports |
+| `fixtures/capability-variants/v1/valid/unsupported-cancel.json` | unsupported capability variant example for cancel requests that must remain blocked or routed |
+| `fixtures/capability-variants/v1/valid/evidence-unavailable.json` | evidence unavailable example for absent, inaccessible, expired, unauthorized, or unsupported evidence retrieval |
+| `fixtures/capability-variants/v1/valid/retryability-examples.json` | retryable transport failure example and non-retryable transport failure example for transport error mapping |
+
+Loop consumers should compare provider-boundary evidence with each example's
+`capabilitySummary` before treating an operation as available. Flow consumers
+should compare connector capability matrix rows with the same summaries. Both
+consumers should preserve the referenced RunRequest, RunStatusSnapshot,
+RunResult, and EvidenceBundleRef artifact families as copied contract fixtures
+and keep unsupported or partial operations fail closed.
+
 ## Drift Routing
 
 Loop and Flow consumers should report capability drift through

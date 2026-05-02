@@ -20,6 +20,9 @@ placeholders for credentials, tenants, hosts, and operator-specific values.
   fixtures.
 - `run-status/v1/valid/` contains valid EIP-0005 RunStatusSnapshot fixtures.
 - `run-status/v1/invalid/` contains negative RunStatusSnapshot fixtures.
+- `capability-variants/v1/valid/` contains public-safe Phase 3 conformance
+  examples for executor transport capability variants. These examples are
+  fixture-like guidance, not a new EIP schema family.
 
 ## X-Gate 2 Loop-Flow Dry-Run Smoke
 
@@ -67,3 +70,35 @@ Downstream X-Gate 2 issues should point back to these fixture expectations:
 
 - [Ensen-flow X-Gate 2 CLI-backed smoke issue](https://github.com/TommyKammy/Ensen-flow/issues/37)
 - [Ensen-loop X-Gate 2 dry-run output issue](https://github.com/TommyKammy/Ensen-loop/issues/35)
+
+## Phase 3 Capability Variant Examples
+
+Phase 3 adds public-safe conformance examples for the executor capability model,
+lifecycle rules, polling behavior, evidence retrieval, and transport
+retryability guidance. They are intentionally transport-neutral JSON examples:
+they do not imply that Ensen-protocol provides a runtime server, SDK,
+connector, OpenAPI endpoint, queue, or provider implementation.
+
+Use these examples as copied or vendored conformance inputs:
+
+| Example | Covered behavior |
+| --- | --- |
+| `fixtures/capability-variants/v1/valid/fully-supported-transport.json` | supported capability variant example for submit, status, cancel, fetchEvidence, polling, evidence references, and idempotency |
+| `fixtures/capability-variants/v1/valid/submit-only-no-polling.json` | partial capability variant example for submit-only or no-polling transports |
+| `fixtures/capability-variants/v1/valid/unsupported-cancel.json` | unsupported capability variant example for cancel requests that must not be inferred as successful |
+| `fixtures/capability-variants/v1/valid/evidence-unavailable.json` | evidence unavailable example for absent, inaccessible, expired, or unsupported evidence retrieval |
+| `fixtures/capability-variants/v1/valid/retryability-examples.json` | retryable transport failure example and non-retryable transport failure example |
+
+Loop and Flow consumers should use the examples as conformance check rows:
+
+- compare each consumer capability matrix or provider boundary against
+  `capabilitySummary`;
+- verify unsupported and out-of-subset operations stay blocked, rejected,
+  unknown, or routed instead of being coerced into success;
+- verify retryable transport failures preserve the same authoritative scope and
+  idempotency binding;
+- verify non-retryable validation, unsupported capability, or unavailable
+  evidence cases do not produce fabricated RunStatusSnapshot or RunResult
+  success;
+- keep local commands and evidence references repo-relative or placeholder-based
+  when copying the examples into consumer repositories.

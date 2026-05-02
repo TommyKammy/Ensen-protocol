@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "../test-support/assertions.js";
@@ -12,6 +12,10 @@ const workstationHomePathFragments = [
 
 function readDoc(relativePath: string): string {
   return readFileSync(path.join(repoRoot, relativePath), "utf8");
+}
+
+function readJson<T>(relativePath: string): T {
+  return JSON.parse(readDoc(relativePath)) as T;
 }
 
 function hasWorkstationHomePath(content: string): boolean {
@@ -412,5 +416,75 @@ describe("integration handoff documentation", () => {
     expect(hasWorkstationHomePath(lifecycle + statusSnapshot + runResult)).toBe(
       false
     );
+  });
+
+  it("links Phase 3 capability variant examples from the capability guidance", () => {
+    const capabilityGuide = readDoc(
+      "docs/integration/executor-transport-capabilities.md"
+    );
+    const lifecycle = readDoc(
+      "docs/integration/executor-operation-lifecycle.md"
+    );
+    const fixturesReadme = readDoc("fixtures/README.md");
+    const examplePaths = [
+      "fixtures/capability-variants/v1/valid/fully-supported-transport.json",
+      "fixtures/capability-variants/v1/valid/submit-only-no-polling.json",
+      "fixtures/capability-variants/v1/valid/unsupported-cancel.json",
+      "fixtures/capability-variants/v1/valid/evidence-unavailable.json",
+      "fixtures/capability-variants/v1/valid/retryability-examples.json"
+    ];
+
+    for (const examplePath of examplePaths) {
+      expect(existsSync(path.join(repoRoot, examplePath))).toBe(true);
+      expect(capabilityGuide).toContain(examplePath);
+      expect(fixturesReadme).toContain(examplePath);
+    }
+
+    const examples = examplePaths.map((examplePath) =>
+      readJson<{
+        variant: string;
+        capabilitySummary: Record<string, string>;
+        conformanceUse: string;
+        runtimeBoundary: string;
+      }>(examplePath)
+    );
+
+    expect(examples.map((example) => example.variant)).toEqual([
+      "fully-supported-transport",
+      "submit-only-no-polling",
+      "unsupported-cancel",
+      "evidence-unavailable",
+      "retryability-examples"
+    ]);
+    expect(examples.map((example) => example.capabilitySummary.status)).toContain(
+      "unsupported"
+    );
+    expect(examples.map((example) => example.capabilitySummary.cancel)).toContain(
+      "unsupported"
+    );
+    expect(examples.map((example) => example.capabilitySummary.fetchEvidence)).toContain(
+      "unsupported"
+    );
+    expect(
+      examples.some((example) =>
+        Object.values(example.capabilitySummary).includes("partial")
+      )
+    ).toBe(true);
+
+    for (const example of examples) {
+      expect(example.runtimeBoundary).toBe("none");
+      expect(example.conformanceUse).toMatch(/Loop|Flow/);
+    }
+
+    for (const expected of [
+      "supported capability variant example",
+      "partial capability variant example",
+      "unsupported capability variant example",
+      "evidence unavailable example",
+      "retryable transport failure example",
+      "non-retryable transport failure example"
+    ]) {
+      expect(capabilityGuide + lifecycle + fixturesReadme).toContain(expected);
+    }
   });
 });
