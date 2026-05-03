@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.3.0 - 2026-05-03
+
+X-Gate 3 Track A operational evidence profile snapshot.
+
+- Added the operational evidence profile for Loop and Flow Track A artifact
+  hygiene checks before owner-controlled real input.
+- Defined guidance for data classification, checksums, producer metadata,
+  retention hints, confidential references, and public fixture-safe artifacts.
+- Added a public-safe operational evidence profile example for synthetic Track A
+  conformance use.
+- Linked the profile from AuditEvent, EvidenceBundleRef, Protocol Snapshot
+  Policy, docs index, and fixtures guidance.
+- Added docs regression coverage for profile discoverability and public fixture
+  safety.
+- Preserved the spec-only boundary: no runtime server, SDK, connector
+  implementation, artifact storage, cleanup, recovery, workflow runtime, OpenAPI
+  transport API, or compliance guarantee is introduced by this release.
+
 ## v0.2.0 - 2026-05-02
 
 Phase 3 transport and capability contract snapshot.
