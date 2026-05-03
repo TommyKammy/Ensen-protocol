@@ -487,4 +487,57 @@ describe("integration handoff documentation", () => {
       expect(capabilityGuide + lifecycle + fixturesReadme).toContain(expected);
     }
   });
+
+  it("documents the operational evidence profile for Track A artifact hygiene", () => {
+    const profilePath = "docs/integration/operational-evidence-profile.md";
+    const examplePath =
+      "fixtures/operational-evidence-profile/v1/valid/public-fixture-safe-profile.json";
+    const profile = readDoc(profilePath);
+    const docsIndex = readDoc("docs/README.md");
+    const evidenceRef = readDoc("docs/EIP-0004-evidence-bundle-ref.md");
+    const auditEvent = readDoc("docs/EIP-0003-audit-event.md");
+    const snapshotPolicy = readDoc("docs/protocol-snapshot-policy.md");
+    const fixturesReadme = readDoc("fixtures/README.md");
+
+    for (const expected of [
+      "operational evidence profile",
+      "Track A",
+      "owner-controlled repo / solo dogfood",
+      "dataClassification",
+      "checksum",
+      "producer metadata",
+      "retention hint",
+      "confidential reference",
+      "public fixture-safe artifact",
+      "local confidential reference",
+      "not a runtime implementation",
+      "not artifact storage",
+      "not cleanup",
+      "not recovery",
+      "not a compliance guarantee",
+      "customer repo",
+      "ERPNext live connector",
+      "regulated data",
+      "electronic signature",
+      "batch release",
+      "final disposition",
+      "compliance guarantee",
+      examplePath
+    ]) {
+      expect(profile).toContain(expected);
+    }
+
+    for (const linkedDoc of [
+      docsIndex,
+      evidenceRef,
+      auditEvent,
+      snapshotPolicy,
+      fixturesReadme
+    ]) {
+      expect(linkedDoc).toContain(profilePath);
+    }
+
+    expect(existsSync(path.join(repoRoot, examplePath))).toBe(true);
+    expect(hasWorkstationHomePath(profile)).toBe(false);
+  });
 });

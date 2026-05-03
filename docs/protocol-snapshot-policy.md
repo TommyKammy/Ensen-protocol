@@ -31,6 +31,9 @@ Each consumer snapshot record should include:
   consumer used to interpret the schema and fixture families;
 - validation commands: sanitized command names and pass/fail results for the
   protocol snapshot and the consumer-side conformance run;
+- operational evidence profile: the
+  `docs/integration/operational-evidence-profile.md` guidance used when the
+  copied snapshot includes Track A artifact hygiene examples;
 - consumer owner: the local consumer test, task, or adapter boundary that reads
   the copied snapshot;
 - unsupported EIP major version evidence: sanitized evidence naming the
