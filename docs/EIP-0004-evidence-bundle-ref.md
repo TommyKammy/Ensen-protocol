@@ -61,3 +61,9 @@ Checked-in EvidenceBundleRef fixtures must be synthetic and public. They should
 use repo-relative local paths or neutral `file:///` examples, never workstation
 home-directory paths, access tokens, passwords, private customer values, or
 evidence bundle bodies.
+
+For Loop and Flow Track A artifact hygiene guidance, use
+`docs/integration/operational-evidence-profile.md` to distinguish public
+fixture-safe evidence references from local confidential references and to
+record data classification, checksum, producer metadata, and retention hint
+expectations.

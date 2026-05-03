@@ -33,6 +33,8 @@ Start here:
 - `integration/transport-error-mapping-and-retryability.md` defines
   transport-neutral error categories, retryability guidance, and status/result
   mapping expectations.
+- `docs/integration/operational-evidence-profile.md` defines the operational
+  evidence profile for Loop and Flow Track A artifact hygiene checks.
 - `integration/cross-repo-change-policy.md` defines the protocol-first
   cross-repo change process.
 - `security.md` defines security posture for protocol artifacts.

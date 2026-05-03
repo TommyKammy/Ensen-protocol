@@ -23,6 +23,10 @@ placeholders for credentials, tenants, hosts, and operator-specific values.
 - `capability-variants/v1/valid/` contains public-safe Phase 3 conformance
   examples for executor transport capability variants. These examples are
   fixture-like guidance, not a new EIP schema family.
+- `operational-evidence-profile/v1/valid/` contains public-safe Track A
+  artifact hygiene examples for
+  `docs/integration/operational-evidence-profile.md`. These examples are
+  fixture-like guidance, not a new EIP schema family.
 
 ## X-Gate 2 Loop-Flow Dry-Run Smoke
 

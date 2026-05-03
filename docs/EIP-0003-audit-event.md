@@ -71,3 +71,8 @@ It must not carry raw secrets, access tokens, private keys, passwords, customer
 private values, or host-local absolute paths. Store sensitive values in an
 approved secret store or evidence system and put only stable redacted references
 or public digests in the AuditEvent.
+
+Loop and Flow Track A artifact hygiene events should follow
+`docs/integration/operational-evidence-profile.md` for public fixture-safe
+labels, local confidential reference handling, producer metadata, retention
+hint, and checksum facts.
