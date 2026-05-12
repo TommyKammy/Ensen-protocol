@@ -85,3 +85,11 @@ AuditEvent payloads may record sanitized confidential reference facts such as
 reference kind, checksum presence, producer boundary, and classification, but
 must not include the controlled material, raw credentials, customer records, or
 regulated record payloads.
+
+Track B approval events should follow
+`docs/integration/approval-and-draft-evidence-semantics.md` when recording
+approval-required, approved, rejected, revoked, or superseded evidence states.
+AuditEvent can describe a human approval point or draft-only action artifact,
+but the protocol event does not grant automatic quality decisions, live
+write-back approval, electronic signatures, batch release, final disposition,
+validated-system status, or compliance guarantees.

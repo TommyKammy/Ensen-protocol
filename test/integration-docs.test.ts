@@ -672,4 +672,81 @@ describe("integration handoff documentation", () => {
     expect(confidentialReferenceExample.dataClassification).toBe("public");
     expect(hasWorkstationHomePath(profile)).toBe(false);
   });
+
+  it("documents Track B approval and draft-only evidence semantics", () => {
+    const profilePath =
+      "docs/integration/approval-and-draft-evidence-semantics.md";
+    const examplePath =
+      "fixtures/approval-evidence-semantics/v1/valid/public-safe-draft-action.json";
+    const profile = readDoc(profilePath);
+    const docsIndex = readDoc("docs/README.md");
+    const evidenceRef = readDoc("docs/EIP-0004-evidence-bundle-ref.md");
+    const auditEvent = readDoc("docs/EIP-0003-audit-event.md");
+    const classificationProfile = readDoc(
+      "docs/integration/customer-regulated-data-classification-profile.md"
+    );
+    const fixturesReadme = readDoc("fixtures/README.md");
+    const example = readJson<{
+      approvalVocabulary: string[];
+      draftOnlyActionArtifact: Record<string, unknown>;
+      auditEventUsage: Record<string, unknown>;
+      evidenceBundleRefUsage: Record<string, unknown>;
+      nonClaims: string[];
+    }>(examplePath);
+
+    for (const expected of [
+      "Track B approval and draft-only evidence semantics",
+      "approval-required",
+      "approved",
+      "rejected",
+      "revoked",
+      "superseded",
+      "draft-only action artifact",
+      "committed artifact",
+      "externally applied artifact",
+      "AuditEvent",
+      "EvidenceBundleRef",
+      "human approval point",
+      "not automatic quality decision",
+      "not live write-back approval",
+      "not electronic signature",
+      "not batch release",
+      "not final disposition",
+      "not a validated system",
+      "not a compliance guarantee",
+      examplePath
+    ]) {
+      expect(profile).toContain(expected);
+    }
+
+    for (const linkedDoc of [
+      docsIndex,
+      evidenceRef,
+      auditEvent,
+      classificationProfile,
+      fixturesReadme
+    ]) {
+      expect(linkedDoc).toContain(profilePath);
+    }
+
+    expect(existsSync(path.join(repoRoot, examplePath))).toBe(true);
+    expect(example.approvalVocabulary).toEqual([
+      "approval-required",
+      "approved",
+      "rejected",
+      "revoked",
+      "superseded"
+    ]);
+    expect(example.draftOnlyActionArtifact.intent).toBe("draft-only");
+    expect(example.draftOnlyActionArtifact.externalApplicationState).toBe(
+      "not-applied"
+    );
+    expect(example.auditEventUsage.type).toBe("flow.approval.required");
+    expect(example.evidenceBundleRefUsage.uri).toContain(
+      "fixtures/approval-evidence-semantics/"
+    );
+    expect(example.nonClaims).toContain("not live write-back approval");
+    expect(example.nonClaims).toContain("not electronic signature");
+    expect(hasWorkstationHomePath(profile + JSON.stringify(example))).toBe(false);
+  });
 });

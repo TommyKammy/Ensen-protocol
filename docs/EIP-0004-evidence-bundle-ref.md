@@ -81,3 +81,12 @@ id, URI or locator shape, checksum, producer metadata, and data classification.
 Those references point to controlled material; they do not authorize raw
 secret, credential, customer record, or regulated record payloads in public
 EvidenceBundleRef fixtures.
+
+For Track B approval and draft-only evidence guidance, use
+`docs/integration/approval-and-draft-evidence-semantics.md`. EvidenceBundleRef
+may point to bounded approval evidence, draft-only action artifacts, rejection
+notes, revocation records, or supersession records, but the reference does not
+turn draft evidence into a committed artifact or externally applied artifact.
+It also does not grant automatic quality decisions, live write-back approval,
+electronic signatures, batch release, final disposition, validated-system
+status, or compliance guarantees.
