@@ -12,7 +12,7 @@
     "regulated"
   ],
   "classificationRequiredFor": [
-    "EvidenceBundleRef customer evidence references",
+    "EvidenceBundleRef Track B evidence references",
     "AuditEvent regulated evidence handling facts",
     "operational evidence profile handoff records",
     "protocol snapshot records that include Track B classification evidence"

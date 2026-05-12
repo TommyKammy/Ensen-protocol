@@ -23,7 +23,7 @@ const likelySecretValuePatterns: Array<[RegExp, string]> = [
 
 const sensitiveKeyPattern = /(?:^|[-_.])(?:secret|token|password|passwd|privateKey|apiKey|accessKey)(?:$|[-_.])/i;
 const customerSpecificValuePattern =
-  /\b(?:acme|globex|initech|customer[_-][a-z0-9-]+|tenant[_ -]?[a-z0-9-]+)\b/i;
+  /\b(?:acme|globex|initech|customer[_ -]?[a-z0-9-]+|tenant[_ -]?[a-z0-9-]+)\b/i;
 const workstationPathPattern = /(?:\/Users\/[^/\s]+|[A-Za-z]:\\Users\\[^\\\s]+)/;
 const classificationKeyPattern = /^(?:dataClassification|classification)$/;
 const publicClassificationValue = "public";
