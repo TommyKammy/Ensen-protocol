@@ -27,6 +27,10 @@ placeholders for credentials, tenants, hosts, and operator-specific values.
   artifact hygiene examples for
   `docs/integration/operational-evidence-profile.md`. These examples are
   fixture-like guidance, not a new EIP schema family.
+- `customer-regulated-data-classification/v1/valid/` contains public-safe
+  Track B classification profile examples for
+  `docs/integration/customer-regulated-data-classification-profile.md`. These
+  examples are fixture-like guidance, not a new EIP schema family.
 
 ## X-Gate 2 Loop-Flow Dry-Run Smoke
 
@@ -106,3 +110,20 @@ Loop and Flow consumers should use the examples as conformance check rows:
   success;
 - keep local commands and evidence references repo-relative or placeholder-based
   when copying the examples into consumer repositories.
+
+## Track B Customer / Regulated Classification Example
+
+Track B adds public-safe classification profile examples for customer /
+regulated evidence planning. The examples do not contain customer data,
+regulated data, raw secrets, credentials, private repository details, or
+workstation-local absolute paths.
+
+Use this example as copied or vendored conformance input:
+
+| Example | Covered behavior |
+| --- | --- |
+| `fixtures/customer-regulated-data-classification/v1/valid/public-safe-profile.json` | public-safe Track B classification vocabulary, classification-required surfaces, fail-closed handling, and non-claims |
+
+Loop, Flow, and Pharma consumers should use the example to verify that customer
+/ regulated references require explicit classification and that missing or
+unknown classification stays blocked or routed instead of inferred.

@@ -25,6 +25,16 @@ const sensitiveKeyPattern = /(?:^|[-_.])(?:secret|token|password|passwd|privateK
 const customerSpecificValuePattern =
   /\b(?:acme|globex|initech|customer[_ -]?[a-z0-9-]+|tenant[_ -]?[a-z0-9-]+)\b/i;
 const workstationPathPattern = /(?:\/Users\/[^/\s]+|[A-Za-z]:\\Users\\[^\\\s]+)/;
+const classificationKeyPattern = /^(?:dataClassification|classification)$/;
+const publicClassificationValue = "public";
+const classificationVocabularyValues = new Set([
+  "public",
+  "internal",
+  "confidential",
+  "customer-confidential",
+  "regulated",
+  "restricted"
+]);
 
 function repoRoot(): string {
   return path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -78,13 +88,28 @@ function inspectValue(
   }
 
   if (typeof value === "string") {
+    if (
+      key &&
+      classificationKeyPattern.test(key) &&
+      value !== publicClassificationValue
+    ) {
+      findings.push({
+        filePath,
+        pointer,
+        reason: `non-public fixture classification: ${value}`
+      });
+    }
+
     for (const [pattern, reason] of likelySecretValuePatterns) {
       if (pattern.test(value)) {
         findings.push({ filePath, pointer, reason });
       }
     }
 
-    if (customerSpecificValuePattern.test(value)) {
+    if (
+      customerSpecificValuePattern.test(value) &&
+      !classificationVocabularyValues.has(value)
+    ) {
       findings.push({ filePath, pointer, reason: "customer-specific value" });
     }
 

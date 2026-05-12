@@ -76,3 +76,8 @@ Loop and Flow Track A artifact hygiene events should follow
 `docs/integration/operational-evidence-profile.md` for public fixture-safe
 labels, local confidential reference handling, producer metadata, retention
 hint, and checksum facts.
+
+Track B customer / regulated events should follow
+`docs/integration/customer-regulated-data-classification-profile.md` before
+customer / regulated evidence production, validation, rejection, redaction, or
+handoff facts are accepted. Missing or unknown classification must fail closed.

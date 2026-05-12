@@ -35,6 +35,8 @@ Start here:
   mapping expectations.
 - `docs/integration/operational-evidence-profile.md` defines the operational
   evidence profile for Loop and Flow Track A artifact hygiene checks.
+- `docs/integration/customer-regulated-data-classification-profile.md` defines the
+  Track B customer / regulated data classification profile.
 - `integration/cross-repo-change-policy.md` defines the protocol-first
   cross-repo change process.
 - `security.md` defines security posture for protocol artifacts.

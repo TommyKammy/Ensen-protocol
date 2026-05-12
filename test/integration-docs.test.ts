@@ -540,4 +540,64 @@ describe("integration handoff documentation", () => {
     expect(existsSync(path.join(repoRoot, examplePath))).toBe(true);
     expect(hasWorkstationHomePath(profile)).toBe(false);
   });
+
+  it("documents the Track B customer and regulated data classification profile", () => {
+    const profilePath =
+      "docs/integration/customer-regulated-data-classification-profile.md";
+    const examplePath =
+      "fixtures/customer-regulated-data-classification/v1/valid/public-safe-profile.json";
+    const profile = readDoc(profilePath);
+    const docsIndex = readDoc("docs/README.md");
+    const dataClassification = readDoc("docs/data-classification.md");
+    const evidenceRef = readDoc("docs/EIP-0004-evidence-bundle-ref.md");
+    const auditEvent = readDoc("docs/EIP-0003-audit-event.md");
+    const operationalProfile = readDoc(
+      "docs/integration/operational-evidence-profile.md"
+    );
+    const snapshotPolicy = readDoc("docs/protocol-snapshot-policy.md");
+    const fixturesReadme = readDoc("fixtures/README.md");
+
+    for (const expected of [
+      "Track B customer / regulated data classification profile",
+      "public",
+      "internal",
+      "confidential",
+      "customer-confidential",
+      "regulated",
+      "classification required",
+      "customer / regulated references",
+      "missing or unknown classification",
+      "fail closed",
+      "EvidenceBundleRef",
+      "AuditEvent",
+      "operational-evidence-profile.md",
+      "fixture safety",
+      "snapshot policy",
+      "not production-ready",
+      "not a validated system",
+      "not a compliance guarantee",
+      "not live ERPNext write-back",
+      "not electronic signature",
+      "not batch release",
+      "not final disposition approval",
+      examplePath
+    ]) {
+      expect(profile).toContain(expected);
+    }
+
+    for (const linkedDoc of [
+      docsIndex,
+      dataClassification,
+      evidenceRef,
+      auditEvent,
+      operationalProfile,
+      snapshotPolicy,
+      fixturesReadme
+    ]) {
+      expect(linkedDoc).toContain(profilePath);
+    }
+
+    expect(existsSync(path.join(repoRoot, examplePath))).toBe(true);
+    expect(hasWorkstationHomePath(profile)).toBe(false);
+  });
 });

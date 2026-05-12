@@ -69,6 +69,54 @@ describe("public fixture safety", () => {
     );
   });
 
+  it("rejects customer identifiers with optional separators", () => {
+    withTempFixture(
+      {
+        schemaVersion: "fixture.test",
+        references: [
+          "customerbeta",
+          "customer beta",
+          "customer-beta",
+          "customer_beta",
+          "tenantbeta",
+          "tenant beta"
+        ]
+      },
+      (filePath) => {
+        const result = checkPublicFixtures([filePath]);
+        const customerSpecificFindings = result.findings.filter(
+          (finding) => finding.reason === "customer-specific value"
+        );
+
+        expect(result.ok).toBe(false);
+        expect(customerSpecificFindings.length).toBe(6);
+      }
+    );
+  });
+
+  it("rejects non-public data classification in publishable fixtures", () => {
+    withTempFixture(
+      {
+        schemaVersion: "fixture.test",
+        dataClassification: "regulated",
+        nested: {
+          classification: "customer-confidential"
+        }
+      },
+      (filePath) => {
+        const result = checkPublicFixtures([filePath]);
+
+        expect(result.ok).toBe(false);
+        expect(result.findings.map((finding) => finding.reason)).toEqual(
+          expect.arrayContaining([
+            "non-public fixture classification: regulated",
+            "non-public fixture classification: customer-confidential"
+          ])
+        );
+      }
+    );
+  });
+
   it("rejects fixture safety negative examples when checked directly", () => {
     const result = checkPublicFixtures([
       path.join(repoRoot, "fixtures/run-request/v1/invalid/raw-secret.json"),
