@@ -17,6 +17,23 @@ artifact as a neighboring supported major version.
 
 The first published protocol baseline is `v0.1.0`.
 
+`v0.4.0` is the X-Gate 3 Track B customer and regulated evidence boundary
+snapshot. It keeps the existing v1 schema family and adds protocol guidance plus
+public-safe examples for downstream Loop, Flow, and Pharma consumer intake:
+
+- customer and regulated data classification profile;
+- `public`, `internal`, `customer-confidential`, and `regulated`
+  classification guidance;
+- public-safe customer / regulated classification fixtures;
+- confidential reference separation between non-public reference metadata and
+  public fixture-safe examples;
+- approval and draft-only evidence semantics for owner-controlled and regulated
+  workflow boundaries.
+
+`v0.4.0` does not introduce a runtime package, shared implementation, server,
+SDK, connector implementation, ERPNext integration, workflow runtime, regulated
+workflow execution, OpenAPI transport API, or compliance guarantee.
+
 `v0.3.0` is the X-Gate 3 Track A operational evidence profile snapshot. It keeps
 the existing v1 schema family and adds protocol guidance plus a public-safe
 example for Loop and Flow artifact hygiene work before owner-controlled real

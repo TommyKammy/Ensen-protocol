@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.4.0 - 2026-05-13
+
+X-Gate 3 Track B customer and regulated evidence boundary snapshot.
+
+- Added the customer and regulated data classification profile for downstream
+  consumer handoff, including `public`, `internal`, `customer-confidential`, and
+  `regulated` classification guidance.
+- Added public-safe customer / regulated classification fixtures and validation
+  coverage.
+- Defined confidential reference separation between non-public reference
+  metadata and public fixture-safe examples.
+- Defined approval and draft-only evidence semantics for owner-controlled and
+  regulated workflow boundaries.
+- Added docs and fixture regression coverage for Track B discoverability,
+  schema IDs, public fixture safety, and spec-only boundary preservation.
+- Preserved the spec-only boundary: no runtime server, SDK, connector
+  implementation, ERPNext integration, workflow runtime, regulated workflow
+  execution, or compliance guarantee is introduced by this release.
+
 ## v0.3.0 - 2026-05-03
 
 X-Gate 3 Track A operational evidence profile snapshot.
