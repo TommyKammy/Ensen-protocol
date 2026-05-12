@@ -24,6 +24,23 @@ function hasWorkstationHomePath(content: string): boolean {
   );
 }
 
+function asJsonObject(value: unknown, label: string): Record<string, unknown> {
+  expect(typeof value, `${label} must be an object`).toBe("object");
+  expect(value === null, `${label} must not be null`).toBe(false);
+  expect(Array.isArray(value), `${label} must not be an array`).toBe(false);
+  return value as Record<string, unknown>;
+}
+
+function requiredStringField(
+  record: Record<string, unknown>,
+  field: string
+): string {
+  const value = record[field];
+  expect(typeof value, `${field} must be a string`).toBe("string");
+  expect(value, `${field} must not be empty`).toMatch(/\S/);
+  return value as string;
+}
+
 describe("integration handoff documentation", () => {
   it("detects common workstation home path fragments", () => {
     expect(
@@ -556,6 +573,9 @@ describe("integration handoff documentation", () => {
     );
     const snapshotPolicy = readDoc("docs/protocol-snapshot-policy.md");
     const fixturesReadme = readDoc("fixtures/README.md");
+    const example = readJson<{ confidentialReferenceExample: unknown }>(
+      examplePath
+    );
 
     for (const expected of [
       "Track B customer / regulated data classification profile",
@@ -570,6 +590,17 @@ describe("integration handoff documentation", () => {
       "fail closed",
       "EvidenceBundleRef",
       "AuditEvent",
+      "confidential reference",
+      "controlled material",
+      "stable id",
+      "URI or locator",
+      "checksum",
+      "producer metadata",
+      "data classification",
+      "not raw secret",
+      "not raw credential",
+      "not raw customer record",
+      "not raw regulated record",
       "operational-evidence-profile.md",
       "fixture safety",
       "snapshot policy",
@@ -598,6 +629,47 @@ describe("integration handoff documentation", () => {
     }
 
     expect(existsSync(path.join(repoRoot, examplePath))).toBe(true);
+    const confidentialReferenceExample = asJsonObject(
+      example.confidentialReferenceExample,
+      "confidentialReferenceExample"
+    );
+    const checksum = asJsonObject(
+      confidentialReferenceExample.checksum,
+      "confidentialReferenceExample.checksum"
+    );
+    const producerMetadata = asJsonObject(
+      confidentialReferenceExample.producerMetadata,
+      "confidentialReferenceExample.producerMetadata"
+    );
+
+    expect(Object.keys(confidentialReferenceExample).sort()).toEqual([
+      "checksum",
+      "dataClassification",
+      "id",
+      "locator",
+      "producerMetadata"
+    ]);
+    expect(requiredStringField(confidentialReferenceExample, "id")).toMatch(
+      /^confref_/
+    );
+    expect(requiredStringField(confidentialReferenceExample, "locator")).toContain(
+      "<controlled-evidence-root>"
+    );
+    expect(requiredStringField(checksum, "algorithm")).toBe("sha256");
+    expect(requiredStringField(checksum, "value")).toMatch(
+      /^[0-9a-f]{64}$/
+    );
+    requiredStringField(producerMetadata, "producer");
+    requiredStringField(producerMetadata, "boundary");
+    const producedAt = requiredStringField(producerMetadata, "producedAt");
+    expect(producedAt).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/);
+    expect(Number.isNaN(Date.parse(producedAt))).toBe(false);
+    expect(Object.keys(producerMetadata).sort()).toEqual([
+      "boundary",
+      "producedAt",
+      "producer"
+    ]);
+    expect(confidentialReferenceExample.dataClassification).toBe("public");
     expect(hasWorkstationHomePath(profile)).toBe(false);
   });
 });

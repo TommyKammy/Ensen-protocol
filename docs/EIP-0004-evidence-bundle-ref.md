@@ -75,3 +75,9 @@ customer-system-derived output require an explicit classification before
 handling. Missing or unknown classification must fail closed instead of being
 inferred from URI shape, repository naming, tenant hints, or operator-facing
 summaries.
+
+The Track B profile also defines confidential reference expectations for stable
+id, URI or locator shape, checksum, producer metadata, and data classification.
+Those references point to controlled material; they do not authorize raw
+secret, credential, customer record, or regulated record payloads in public
+EvidenceBundleRef fixtures.

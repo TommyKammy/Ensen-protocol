@@ -81,3 +81,7 @@ Track B customer / regulated events should follow
 `docs/integration/customer-regulated-data-classification-profile.md` before
 customer / regulated evidence production, validation, rejection, redaction, or
 handoff facts are accepted. Missing or unknown classification must fail closed.
+AuditEvent payloads may record sanitized confidential reference facts such as
+reference kind, checksum presence, producer boundary, and classification, but
+must not include the controlled material, raw credentials, customer records, or
+regulated record payloads.
