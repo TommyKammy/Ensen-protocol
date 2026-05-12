@@ -31,6 +31,10 @@ placeholders for credentials, tenants, hosts, and operator-specific values.
   Track B classification profile examples for
   `docs/integration/customer-regulated-data-classification-profile.md`. These
   examples are fixture-like guidance, not a new EIP schema family.
+- `approval-evidence-semantics/v1/valid/` contains public-safe Track B approval
+  and draft-only evidence semantics examples for
+  `docs/integration/approval-and-draft-evidence-semantics.md`. These examples
+  are fixture-like guidance, not a new EIP schema family.
 
 ## X-Gate 2 Loop-Flow Dry-Run Smoke
 
@@ -134,3 +138,23 @@ stable synthetic id, placeholder locator, checksum, producer metadata, and
 repositories can cite that shape from artifact hygiene and public export checks,
 but real customer / regulated evidence references must remain in the controlled
 consumer boundary.
+
+## Track B Approval and Draft-Only Evidence Example
+
+Track B adds public-safe approval and draft-only evidence examples for shared
+approval vocabulary and draft-only workflow evidence. The examples do not
+contain customer data, regulated data, raw secrets, credentials, private
+repository details, workstation-local absolute paths, live write-back records,
+electronic signature records, batch release records, or final disposition
+records.
+
+Use this example as copied or vendored conformance input:
+
+| Example | Covered behavior |
+| --- | --- |
+| `fixtures/approval-evidence-semantics/v1/valid/public-safe-draft-action.json` | approval-required, approved, rejected, revoked, and superseded vocabulary; draft-only action artifact handling; AuditEvent and EvidenceBundleRef usage; and non-claims |
+
+Loop, Flow, and Pharma consumers should use the example to verify that a
+draft-only action artifact remains not-applied until the authoritative workflow
+boundary records approval, and that rejected, revoked, or superseded evidence
+stays represented as append-only evidence instead of inferred success.

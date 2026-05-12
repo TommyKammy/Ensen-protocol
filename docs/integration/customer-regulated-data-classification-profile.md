@@ -110,6 +110,13 @@ The protocol snapshot policy in `docs/protocol-snapshot-policy.md` should name
 this profile when a copied snapshot includes Track B customer / regulated
 classification docs, fixtures, or downstream conformance evidence.
 
+Approval-required, approved, rejected, revoked, superseded, and draft-only
+action evidence should also follow
+`docs/integration/approval-and-draft-evidence-semantics.md`. Classification is
+still required for customer / regulated approval evidence, and approval state
+must not be inferred from names, paths, comments, issue text, operator
+summaries, or nearby metadata.
+
 ## Public Fixture Safety
 
 Public examples for this profile must remain synthetic and publishable. They

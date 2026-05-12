@@ -37,6 +37,8 @@ Start here:
   evidence profile for Loop and Flow Track A artifact hygiene checks.
 - `docs/integration/customer-regulated-data-classification-profile.md` defines the
   Track B customer / regulated data classification profile.
+- `docs/integration/approval-and-draft-evidence-semantics.md` defines the
+  Track B approval and draft-only evidence semantics profile.
 - `integration/cross-repo-change-policy.md` defines the protocol-first
   cross-repo change process.
 - `security.md` defines security posture for protocol artifacts.
