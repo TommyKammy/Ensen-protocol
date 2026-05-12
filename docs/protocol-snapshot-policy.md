@@ -37,7 +37,8 @@ Each consumer snapshot record should include:
 - customer / regulated classification profile: the
   `docs/integration/customer-regulated-data-classification-profile.md` guidance
   used when the copied snapshot includes Track B customer / regulated
-  classification evidence;
+  classification evidence, confidential reference examples, or public export
+  checks that prove controlled material stays outside public fixtures;
 - consumer owner: the local consumer test, task, or adapter boundary that reads
   the copied snapshot;
 - unsupported EIP major version evidence: sanitized evidence naming the

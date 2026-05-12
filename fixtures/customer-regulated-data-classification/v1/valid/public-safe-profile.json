@@ -30,6 +30,22 @@
     "containsWorkstationLocalAbsolutePath": false,
     "placeholderEvidenceRoot": "<evidence-root>/track-b/public-safe-example.json"
   },
+  "confidentialReferenceExample": {
+    "id": "confref_synthetic_0001",
+    "locator": "<controlled-evidence-root>/track-b/synthetic-reference.json",
+    "checksum": {
+      "algorithm": "sha256",
+      "value": "abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789"
+    },
+    "producerMetadata": {
+      "producer": "synthetic-producer",
+      "boundary": "protocol-example",
+      "producedAt": "2026-01-01T00:00:00Z"
+    },
+    "dataClassification": "public",
+    "controlledMaterial": "reference only; controlled payload is not stored in public fixtures",
+    "publicFixtureContent": "synthetic metadata only; no raw client or regulated payload"
+  },
   "nonClaims": [
     "not production-ready",
     "not a validated system",

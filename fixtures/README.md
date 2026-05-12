@@ -127,3 +127,10 @@ Use this example as copied or vendored conformance input:
 Loop, Flow, and Pharma consumers should use the example to verify that customer
 / regulated references require explicit classification and that missing or
 unknown classification stays blocked or routed instead of inferred.
+
+The example also includes a sanitized confidential reference shape. It shows a
+stable synthetic id, placeholder locator, checksum, producer metadata, and
+`public` fixture classification without storing the controlled material. Runtime
+repositories can cite that shape from artifact hygiene and public export checks,
+but real customer / regulated evidence references must remain in the controlled
+consumer boundary.

@@ -105,6 +105,12 @@ does not permit customer repo input, regulated data, live ERPNext write-back,
 electronic signatures, batch release, final disposition approval, or compliance
 claims.
 
+For Track B, that profile separates confidential references from public fixture
+examples. Loop, Flow, and Pharma artifact hygiene checks should cite it when
+public exports need to prove that confidential references carry only sanitized
+id, locator, checksum, producer metadata, and classification fields while the
+controlled material stays outside public fixtures.
+
 ## Conformance Example
 
 The public conformance example lives at

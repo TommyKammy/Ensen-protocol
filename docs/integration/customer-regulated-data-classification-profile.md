@@ -65,6 +65,35 @@ customer data, regulated data, private repository details, raw secrets, or
 evidence bodies. For Track B, the reference handling boundary must have an
 explicit classification before the reference is used.
 
+A confidential reference is a reference to controlled material, not the
+controlled material itself. It may describe that a non-public artifact exists
+only through these bounded fields:
+
+- stable id: a durable synthetic identifier for the reference record, not a
+  customer identifier, tenant name, credential value, account id, repository
+  path, or regulated record id;
+- URI or locator: a placeholder or controlled-boundary locator such as
+  `<controlled-evidence-root>/...`, never a raw workstation-local absolute
+  path, live ERPNext URL, credential-bearing URI, private repository detail, or
+  exposed customer system path;
+- checksum: the digest algorithm and value for the controlled material when a
+  stable body exists, or an explicit producer reason when no stable body can be
+  digested;
+- producer metadata: bounded facts such as producer name, producer boundary,
+  protocol version, production time, and validation command, with no raw
+  secrets, credentials, tokens, private repository details, or workstation-local
+  paths;
+- data classification: the explicit `customer-confidential` or `regulated`
+  handling value for real controlled material, or `public` only when the value
+  is a synthetic public fixture example.
+
+Confidential references must be handled as not raw secret, not raw credential,
+not raw customer record, and not raw regulated record payloads. When any of the
+stable id, URI or locator, checksum expectation, producer metadata, or data
+classification signals are missing, malformed, or only inferred from nearby
+metadata, consumers should reject, quarantine, or route a follow-up instead of
+accepting the reference.
+
 AuditEvent should record append-only facts about classification, production,
 validation, rejection, redaction, and handoff. AuditEvent payloads may include
 `dataClassification`, redacted reference kind, producer boundary, checksum
