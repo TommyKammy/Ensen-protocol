@@ -42,9 +42,7 @@
       "boundary": "protocol-example",
       "producedAt": "2026-01-01T00:00:00Z"
     },
-    "dataClassification": "public",
-    "controlledMaterial": "reference only; controlled payload is not stored in public fixtures",
-    "publicFixtureContent": "synthetic metadata only; no raw client or regulated payload"
+    "dataClassification": "public"
   },
   "nonClaims": [
     "not production-ready",

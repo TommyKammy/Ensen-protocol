@@ -570,8 +570,6 @@ describe("integration handoff documentation", () => {
           producedAt: string;
         };
         dataClassification: string;
-        controlledMaterial: string;
-        publicFixtureContent: string;
       };
     }>(examplePath);
 
@@ -627,6 +625,13 @@ describe("integration handoff documentation", () => {
     }
 
     expect(existsSync(path.join(repoRoot, examplePath))).toBe(true);
+    expect(Object.keys(example.confidentialReferenceExample).sort()).toEqual([
+      "checksum",
+      "dataClassification",
+      "id",
+      "locator",
+      "producerMetadata"
+    ]);
     expect(example.confidentialReferenceExample.id).toMatch(/^confref_/);
     expect(example.confidentialReferenceExample.locator).toContain(
       "<controlled-evidence-root>"
@@ -635,16 +640,32 @@ describe("integration handoff documentation", () => {
     expect(example.confidentialReferenceExample.checksum.value).toMatch(
       /^[0-9a-f]{64}$/
     );
-    expect(example.confidentialReferenceExample.producerMetadata.producer).toBe(
-      "synthetic-producer"
+    expect(
+      typeof example.confidentialReferenceExample.producerMetadata.producer
+    ).toBe("string");
+    expect(
+      example.confidentialReferenceExample.producerMetadata.producer
+    ).toMatch(/\S/);
+    expect(
+      typeof example.confidentialReferenceExample.producerMetadata.boundary
+    ).toBe("string");
+    expect(
+      example.confidentialReferenceExample.producerMetadata.boundary
+    ).toMatch(/\S/);
+    expect(
+      example.confidentialReferenceExample.producerMetadata.producedAt
+    ).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/);
+    expect(
+      Number.isNaN(
+        Date.parse(example.confidentialReferenceExample.producerMetadata.producedAt)
+      )
+    ).toBe(false);
+    expect(
+      Object.keys(example.confidentialReferenceExample.producerMetadata).sort()
+    ).toEqual(
+      ["boundary", "producedAt", "producer"]
     );
     expect(example.confidentialReferenceExample.dataClassification).toBe("public");
-    expect(example.confidentialReferenceExample.controlledMaterial).toContain(
-      "reference only"
-    );
-    expect(example.confidentialReferenceExample.publicFixtureContent).toContain(
-      "no raw client or regulated payload"
-    );
     expect(hasWorkstationHomePath(profile)).toBe(false);
   });
 });
