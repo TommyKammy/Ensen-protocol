@@ -201,8 +201,15 @@
     },
     "DataClassification": {
       "type": "string",
-      "description": "Classification label for fixture and production data handling.",
-      "enum": ["public", "internal", "confidential", "restricted"]
+      "description": "Classification label for fixture and production data handling. Track B customer and regulated evidence uses customer-confidential or regulated when those boundaries apply.",
+      "enum": [
+        "public",
+        "internal",
+        "confidential",
+        "customer-confidential",
+        "regulated",
+        "restricted"
+      ]
     }
   }
 }

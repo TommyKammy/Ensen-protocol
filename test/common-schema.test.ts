@@ -125,6 +125,23 @@ describe("EIP-0000 common schema", () => {
     }
   );
 
+  it.each(["public", "internal", "confidential", "customer-confidential", "regulated"])(
+    "accepts Track B customer and regulated classification profile value: %s",
+    (classification) => {
+      expect(
+        validate(commonEnvelope({ classification })),
+        JSON.stringify(validate.errors, null, 2)
+      ).toBe(true);
+    }
+  );
+
+  it.each(["", "unknown", "customer", "regulated-data"])(
+    "rejects missing or unknown classification profile value: %s",
+    (classification) => {
+      expect(validate(commonEnvelope({ classification }))).toBe(false);
+    }
+  );
+
   it.each(["service", "workflow-engine", "apiClient", ""])(
     "rejects malformed or non-design ActorRef actorType: %s",
     (actorType) => {
@@ -178,6 +195,8 @@ describe("EIP-0000 common docs", () => {
     expect(commonTypes).toContain("artifact-specific primary ID aliases");
     expect(dataClassification).toContain("public fixture data");
     expect(dataClassification).toContain("production message data");
+    expect(dataClassification).toContain("Track B customer / regulated profile");
+    expect(dataClassification).toContain("missing or unknown classification");
     expect(idempotency).toContain("CorrelationId");
   });
 });

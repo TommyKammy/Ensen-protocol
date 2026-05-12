@@ -67,3 +67,11 @@ For Loop and Flow Track A artifact hygiene guidance, use
 fixture-safe evidence references from local confidential references and to
 record data classification, checksum, producer metadata, and retention hint
 expectations.
+
+For Track B customer / regulated evidence guidance, use
+`docs/integration/customer-regulated-data-classification-profile.md`.
+EvidenceBundleRef references to customer evidence, regulated evidence, or
+customer-system-derived output require an explicit classification before
+handling. Missing or unknown classification must fail closed instead of being
+inferred from URI shape, repository naming, tenant hints, or operator-facing
+summaries.

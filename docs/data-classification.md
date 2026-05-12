@@ -9,10 +9,39 @@ apply appropriate handling rules.
   conformance tests.
 - `internal`: intended for routine internal protocol operations, but not for
   public fixtures.
-- `confidential`: contains business-sensitive or user-sensitive production
-  message data.
-- `restricted`: contains highly sensitive production message data that requires
-  the strictest supported handling.
+- `confidential`: contains business-sensitive or user-sensitive non-public
+  production message data that is not specifically customer-owned or regulated.
+- `customer-confidential`: contains customer-owned, customer-identifying, or
+  customer-provided information that must stay in the owning customer /
+  tenant evidence boundary.
+- `regulated`: contains data or evidence subject to regulated handling,
+  validation, retention, privacy, electronic record, or domain-specific control
+  requirements.
+- `restricted`: legacy high-sensitivity label for existing v1 artifacts that
+  need stricter handling than `confidential`. New Track B customer / regulated
+  evidence should use `customer-confidential` or `regulated` when those terms
+  describe the boundary.
+
+## Track B Customer / Regulated Profile
+
+Track B customer / regulated profile is the short name for the required
+classification profile used by customer / regulated evidence handoffs.
+
+The Track B customer / regulated profile is the required classification profile
+for protocol artifacts that reference customer-controlled systems, customer
+evidence, regulated evidence, regulated workflow facts, or customer / regulated
+AuditEvent and EvidenceBundleRef surfaces.
+
+Classification required means the producer must emit one explicit
+classification value before a customer / regulated reference or evidence
+artifact can be handled as Track B evidence. The value must be selected from
+the common `DataClassification` vocabulary above. The fail-closed trigger is
+missing or unknown classification: consumers should reject, block, quarantine,
+or route the artifact for an explicit protocol or consumer follow-up instead of
+guessing that a nearby label is acceptable.
+
+The detailed handoff profile is
+`docs/integration/customer-regulated-data-classification-profile.md`.
 
 ## Fixture Data
 

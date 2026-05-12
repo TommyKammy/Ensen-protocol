@@ -69,6 +69,29 @@ describe("public fixture safety", () => {
     );
   });
 
+  it("rejects non-public data classification in publishable fixtures", () => {
+    withTempFixture(
+      {
+        schemaVersion: "fixture.test",
+        dataClassification: "regulated",
+        nested: {
+          classification: "customer-confidential"
+        }
+      },
+      (filePath) => {
+        const result = checkPublicFixtures([filePath]);
+
+        expect(result.ok).toBe(false);
+        expect(result.findings.map((finding) => finding.reason)).toEqual(
+          expect.arrayContaining([
+            "non-public fixture classification: regulated",
+            "non-public fixture classification: customer-confidential"
+          ])
+        );
+      }
+    );
+  });
+
   it("rejects fixture safety negative examples when checked directly", () => {
     const result = checkPublicFixtures([
       path.join(repoRoot, "fixtures/run-request/v1/invalid/raw-secret.json"),

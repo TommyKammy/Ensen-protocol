@@ -56,6 +56,19 @@ artifact. It requires an explicit sourceId and sourceType.
 WorkItemRef, ChangeRequestRef, and EvidenceBundleRef link to their respective
 protocol records by explicit reference id fields.
 
+## Data Classification
+
+DataClassification labels the handling boundary for fixture and production
+message data. v1 values are `public`, `internal`, `confidential`,
+`customer-confidential`, `regulated`, and `restricted`.
+
+Track B customer / regulated profile guidance lives in
+`docs/integration/customer-regulated-data-classification-profile.md`. Customer
+/ regulated references and evidence artifacts require an explicit
+classification value before handling. Missing or unknown classification must
+fail closed instead of being inferred from path shape, repository naming,
+operator notes, or nearby metadata.
+
 ErrorInfo carries structured failure information. Error codes are stable,
 uppercase protocol tokens. Messages are diagnostic text and are not stable
 machine contracts.

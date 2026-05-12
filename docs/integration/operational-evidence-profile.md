@@ -99,6 +99,12 @@ authorization context, or boundary signals are missing, malformed, or only
 partially trusted. A syntactically valid EvidenceBundleRef or AuditEvent is not
 proof that the referenced evidence is trusted or authorized.
 
+Track B customer / regulated evidence handling builds on this profile through
+`docs/integration/customer-regulated-data-classification-profile.md`. Track A
+does not permit customer repo input, regulated data, live ERPNext write-back,
+electronic signatures, batch release, final disposition approval, or compliance
+claims.
+
 ## Conformance Example
 
 The public conformance example lives at
